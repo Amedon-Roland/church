@@ -27,7 +27,7 @@ export function FadeIn({
   offset = 0,
 }: FadeInProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin });
+  const isInView = useInView(ref, { once, margin: margin as any });
 
   const directions = {
     up: { y: offset || 40, x: 0 }, // Reduced from 60 to 40
