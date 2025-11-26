@@ -1,7 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 
@@ -28,7 +26,6 @@ export default async function LocaleLayout({
   params: Promise<{locale: string}>;
 }) {
   const {locale} = await params;
-  const messages = await getMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -39,10 +36,8 @@ export default async function LocaleLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextIntlClientProvider messages={messages}>
-            <ScrollProgress />
-            {children}
-          </NextIntlClientProvider>
+          <ScrollProgress />
+          {children}
         </ThemeProvider>
       </body>
     </html>
