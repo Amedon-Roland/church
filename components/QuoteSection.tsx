@@ -1,35 +1,58 @@
 "use client";
 
+import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { Quote } from "lucide-react";
 
 export default function QuoteSection() {
   return (
-    <section className="py-24 bg-app relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-         <div className="absolute right-0 top-0 w-96 h-96 bg-primary rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-         <div className="absolute left-0 bottom-0 w-96 h-96 bg-secondary rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-      </div>
+    <section
+      className="relative py-32 lg:py-44 overflow-hidden"
+      style={{ background: "var(--bg-inverse)" }}
+    >
+      {/* Aurora background */}
+      <div
+        className="absolute inset-0 opacity-60"
+        style={{
+          background:
+            "radial-gradient(ellipse at 20% 30%, rgba(30,58,138,0.4) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(212,165,116,0.25) 0%, transparent 50%)",
+        }}
+      />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      {/* Grain */}
+      <div className="absolute inset-0 bg-grain pointer-events-none" />
+
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <FadeIn>
-          <div className="flex justify-center mb-8 text-[var(--primary)] opacity-20">
-            <Quote size={100} fill="currentColor" />
+          {/* Large decorative quote mark */}
+          <div className="flex justify-center mb-8">
+            <span
+              className="font-display text-[120px] md:text-[180px] leading-none text-primary opacity-30"
+              aria-hidden="true"
+            >
+              "
+            </span>
           </div>
-          
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-txt-main mb-8 relative z-10">
-            NOUS VOULONS <br />
-            SERVIR LE MONDE <br />
-            QUI NOUS ENTOURE
-          </h2>
-          
-          <p className="text-txt-muted max-w-3xl mx-auto mb-12 leading-relaxed relative z-10">
-            Notre mission est de partager l'amour de Dieu avec notre communauté et au-delà, en servant avec compassion et dévouement.
+
+          <blockquote className="font-display font-bold text-3xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-10 text-balance">
+            Nous voulons{" "}
+            <span className="font-display-italic text-gradient-gold">servir</span> le monde qui nous entoure, et porter la lumière là où elle manque le plus.
+          </blockquote>
+
+          <div className="flex items-center justify-center gap-4 mb-10">
+            <span className="h-px w-12 bg-primary/60" />
+            <p className="text-xs uppercase tracking-[0.35em] text-primary font-semibold">
+              Notre mission
+            </p>
+            <span className="h-px w-12 bg-primary/60" />
+          </div>
+
+          <p className="max-w-2xl mx-auto text-white/70 text-lg leading-relaxed mb-12">
+            Partager l'amour de Dieu avec notre communauté et au-delà, en servant avec compassion et dévouement.
           </p>
-          
-          <button className="bg-[var(--secondary)] text-white px-10 py-4 rounded-sm font-bold uppercase text-sm tracking-widest hover:bg-[var(--tertiary)] transition-all hover:scale-105 shadow-lg">
-            Visitez Notre Boutique
-          </button>
+
+          <Button variant="gold" size="lg" withArrow>
+            Découvrir nos actions
+          </Button>
         </FadeIn>
       </div>
     </section>

@@ -5,47 +5,29 @@ import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function ScrollToTop() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    const toggle = () => setVisible(window.pageYOffset > 400);
+    window.addEventListener("scroll", toggle, { passive: true });
+    return () => window.removeEventListener("scroll", toggle);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {visible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-4 rounded-full bg-gradient-to-r from-primary to-primary-hover text-white shadow-2xl hover:shadow-primary/50 transition-all duration-300 group"
-          whileHover={{ scale: 1.1, rotate: 360 }}
-          whileTap={{ scale: 0.9 }}
-          style={{
-            boxShadow: "0 0 30px rgba(55, 83, 157, 0.5), 0 10px 40px rgba(0, 0, 0, 0.3)",
-          }}
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.8 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Retour en haut"
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full btn-gold flex items-center justify-center group"
         >
-          <ArrowUp className="w-6 h-6 group-hover:animate-bounce" />
-          
-          {/* Glow effect */}
-          <div className="absolute inset-0 rounded-full bg-primary/50 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+          <ArrowUp className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
+          <span className="absolute inset-0 rounded-full animate-pulse-gold pointer-events-none" />
         </motion.button>
       )}
     </AnimatePresence>

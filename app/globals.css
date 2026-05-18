@@ -1,45 +1,71 @@
 @import "tailwindcss";
 
-:root {
-  /* Light Mode - Semantic Tokens */
-  --bg-app: #ffffff;
-  --bg-subtle: #f8f9fa;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f8f9fa;
-  --border-default: #e5e7eb;
-  
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-tertiary: #9ca3af;
+/* ============================================================
+   VICTORY OUTREACH — GOSPEL CONTEMPORAIN
+   Refined palette + cinematic motion + glassmorphism atmosphere
+   ============================================================ */
 
-  /* Brand Colors */
-  --primary: #37539d; /* Blue */
-  --primary-hover: #2c4280;
-  --secondary: #bf8b25; /* Gold */
-  --tertiary: #512b18; /* Dark Brown */
-  
+:root {
+  /* ---------- Light: Ivory Sanctuary ---------- */
+  --bg-app: #faf7f2;            /* warm ivory */
+  --bg-subtle: #f3ede2;          /* paper cream */
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8f4ec;
+  --bg-inverse: #0a1628;         /* deep midnight for dark blocks on light */
+
+  --border-default: #e8dfcf;
+  --border-strong: #cbb98f;
+
+  --text-primary: #0a1628;       /* near-black with blue cast */
+  --text-secondary: #3d4a63;
+  --text-tertiary: #7a8499;
+  --text-on-dark: #faf7f2;
+
+  /* Brand: Midnight Blue + Warm Gold */
+  --primary: #1e3a8a;            /* deep royal blue */
+  --primary-hover: #15296b;
+  --primary-soft: #3b5bbf;
+  --secondary: #d4a574;          /* warm gold */
+  --secondary-hover: #b88a52;
+  --accent: #c9994d;             /* burnished gold */
+  --tertiary: #2c1810;           /* espresso brown */
+
+  /* Glow rgb helpers */
+  --primary-rgb: 30, 58, 138;
+  --secondary-rgb: 212, 165, 116;
+
   --background: var(--bg-app);
   --foreground: var(--text-primary);
 }
 
 .dark {
-  /* Dark Mode - Professional Palette (Radix-inspired Slate/Blue-ish Grey) */
-  --bg-app: #0f1115; /* Deep rich dark, not pitch black */
-  --bg-subtle: #161b22; /* Slightly lighter for headers/sections */
-  --bg-card: #1c2128; /* Surface color */
-  --bg-card-hover: #252b36; /* Interactive state */
-  --border-default: #30363d; /* Subtle borders */
-  
-  --text-primary: #ffffff; /* Pure white for headings */
-  --text-secondary: rgba(255, 255, 255, 0.8); /* Soft white for body text */
-  --text-tertiary: rgba(255, 255, 255, 0.5); /* Muted white for subtle text */
+  /* ---------- Dark: Midnight Cathedral ---------- */
+  --bg-app: #070d1c;             /* near-black midnight */
+  --bg-subtle: #0d1730;          /* deep navy */
+  --bg-card: #121e3d;            /* surface navy */
+  --bg-card-hover: #1a294d;
+  --bg-inverse: #faf7f2;
 
-  /* Brand Colors Adapted */
-  --primary: #4a66b0; /* Slightly lighter Blue for dark mode visibility */
-  --primary-hover: #5b76c0;
-  --secondary: #d4a03d; /* Lighter Gold */
-  --tertiary: #e5c4a0; /* Beige/Gold for what was dark brown text */
-  
+  --border-default: #1f2f5a;
+  --border-strong: #3a4c80;
+
+  --text-primary: #f5ecd9;       /* warm ivory text */
+  --text-secondary: rgba(245, 236, 217, 0.72);
+  --text-tertiary: rgba(245, 236, 217, 0.45);
+  --text-on-dark: #f5ecd9;
+
+  /* Brand: Lifted Blue + Luminous Gold */
+  --primary: #6b8aff;            /* luminous blue */
+  --primary-hover: #8aa3ff;
+  --primary-soft: #4a66c7;
+  --secondary: #f4c97a;           /* glowing gold */
+  --secondary-hover: #ffd98a;
+  --accent: #ffd98a;
+  --tertiary: #f5ecd9;
+
+  --primary-rgb: 107, 138, 255;
+  --secondary-rgb: 244, 201, 122;
+
   --background: var(--bg-app);
   --foreground: var(--text-primary);
 }
@@ -47,31 +73,31 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
-  /* Semantic Colors */
+
   --color-app: var(--bg-app);
   --color-subtle: var(--bg-subtle);
   --color-card: var(--bg-card);
   --color-card-hover: var(--bg-card-hover);
+  --color-inverse: var(--bg-inverse);
   --color-border: var(--border-default);
-  
+  --color-border-strong: var(--border-strong);
+
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
   --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-accent: var(--accent);
   --color-tertiary: var(--tertiary);
-  
-  /* Semantic Text Colors */
+
   --color-txt-main: var(--text-primary);
   --color-txt-muted: var(--text-secondary);
   --color-txt-faint: var(--text-tertiary);
-  
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-txt-on-dark: var(--text-on-dark);
 
-@theme {
-  --font-geist-sans: var(--font-geist-sans);
-  --font-geist-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-jakarta);
+  --font-mono: var(--font-jetbrains);
 }
 
 html {
@@ -81,49 +107,343 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "ss02", "cv11";
+  font-optical-sizing: auto;
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 50, "WONK" 0;
+  letter-spacing: -0.02em;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+.font-display-italic {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
 }
 
-@keyframes glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(55, 83, 157, 0.4);
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   AMBIENT BACKGROUNDS
+   ============================================================ */
+
+/* Subtle film grain overlay for atmosphere */
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+.dark .bg-grain::before {
+  opacity: 0.06;
+  mix-blend-mode: soft-light;
+}
+
+/* Dotted grid pattern */
+.bg-dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--primary-rgb), 0.15) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+.dark .bg-dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--primary-rgb), 0.22) 1px, transparent 0);
+}
+
+/* Aurora gradient — signature mesh (BLUE-DOMINANT) */
+.bg-aurora {
+  background:
+    radial-gradient(at 18% 22%, rgba(var(--primary-rgb), 0.45) 0px, transparent 55%),
+    radial-gradient(at 82% 18%, rgba(var(--primary-rgb), 0.32) 0px, transparent 55%),
+    radial-gradient(at 50% 88%, rgba(var(--primary-rgb), 0.35) 0px, transparent 60%),
+    radial-gradient(at 65% 50%, rgba(var(--secondary-rgb), 0.08) 0px, transparent 45%);
+}
+
+.dark .bg-aurora {
+  background:
+    radial-gradient(at 18% 22%, rgba(var(--primary-rgb), 0.55) 0px, transparent 55%),
+    radial-gradient(at 82% 18%, rgba(var(--primary-rgb), 0.4) 0px, transparent 55%),
+    radial-gradient(at 50% 88%, rgba(var(--primary-rgb), 0.45) 0px, transparent 60%),
+    radial-gradient(at 65% 50%, rgba(var(--secondary-rgb), 0.07) 0px, transparent 45%);
+}
+
+/* Subtle vertical fade */
+.bg-fade-top {
+  background: linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg-app) 100%);
+}
+
+/* ============================================================
+   GLASS MORPHISM
+   ============================================================ */
+
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dark .glass {
+  background: rgba(18, 30, 61, 0.55);
+  border: 1px solid rgba(107, 138, 255, 0.12);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 60px -20px rgba(10, 22, 40, 0.15);
+}
+
+.dark .glass-strong {
+  background: rgba(13, 23, 48, 0.72);
+  border: 1px solid rgba(107, 138, 255, 0.15);
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+.glass-dark {
+  background: rgba(10, 22, 40, 0.5);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================
+   BUTTONS & INTERACTIVE
+   ============================================================ */
+
+/* Primary CTA (blue-dominant) — formerly btn-gold */
+.btn-gold {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.18) inset,
+    0 10px 30px -10px rgba(var(--primary-rgb), 0.65);
+  transition: all 0.3s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.18) inset,
+    0 18px 40px -10px rgba(var(--primary-rgb), 0.85);
+}
+
+.dark .btn-gold {
+  color: #ffffff;
+}
+
+/* Rare real-gold button — for special accents only */
+.btn-gold-real {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+  color: var(--tertiary);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.1) inset,
+    0 10px 30px -10px rgba(var(--secondary-rgb), 0.6);
+  transition: all 0.3s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}
+
+.btn-gold-real:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.1) inset,
+    0 18px 40px -10px rgba(var(--secondary-rgb), 0.8);
+}
+
+.dark .btn-gold-real {
+  color: #0a1628;
+}
+
+.btn-ink {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: var(--text-on-dark);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 10px 30px -10px rgba(var(--primary-rgb), 0.55);
+  transition: all 0.3s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}
+
+.btn-ink:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 18px 40px -10px rgba(var(--primary-rgb), 0.8);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  transition: all 0.3s ease;
+}
+
+.btn-ghost:hover {
+  background: var(--bg-inverse);
+  color: var(--text-on-dark);
+  border-color: var(--bg-inverse);
+}
+
+/* Animated shimmer line */
+.shimmer-line {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: shimmer 2.6s infinite;
+}
+
+@keyframes shimmer {
+  to { transform: translateX(100%); }
+}
+
+/* Gradient text utility */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-soft) 50%, var(--primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 6s linear infinite;
+}
+
+.text-gradient-ink {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-soft) 50%, var(--primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 6s linear infinite;
+}
+
+/* Real gold gradient — kept for rare moments only */
+.text-gradient-gold-real {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 6s linear infinite;
+}
+
+@keyframes gradient-pan {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(var(--primary-rgb), 0.3); }
+  50% { box-shadow: 0 0 60px rgba(var(--primary-rgb), 0.6); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 30px rgba(var(--primary-rgb), 0.4); }
+  50% { box-shadow: 0 0 60px rgba(var(--primary-rgb), 0.65); }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes draw-line {
+  from { stroke-dashoffset: 100%; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float-soft { animation: float-soft 5s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-pulse-gold { animation: pulse-gold 3s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 24s linear infinite; }
+.animate-fade-rise { animation: fade-rise 0.8s cubic-bezier(0.21, 0.47, 0.32, 0.98) forwards; }
+
+/* Stagger helpers */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-700 { animation-delay: 0.7s; }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-subtle); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%);
+  border-radius: 999px;
+  border: 2px solid var(--bg-subtle);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--primary-soft) 0%, var(--primary) 100%);
+}
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+
+::selection {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.dark ::selection {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  50% {
-    box-shadow: 0 0 40px rgba(55, 83, 157, 0.8);
-  }
-}
-
-.animate-gradient {
-  animation: gradient 3s ease infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
 }

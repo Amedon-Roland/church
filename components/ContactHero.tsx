@@ -6,115 +6,99 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function ContactHero() {
   return (
-    <div className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
-      {/* Background with overlay */}
-      <motion.div 
+    <div
+      className="relative h-[70vh] min-h-[500px] w-full flex items-center justify-center overflow-hidden"
+      style={{ background: "var(--bg-inverse)" }}
+    >
+      <motion.div
         className="absolute inset-0 z-0"
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1.8 }}
       >
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        <div
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop")',
+            backgroundImage:
+              'url("https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop")',
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-primary/30" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(7,13,28,0.85) 0%, rgba(30,58,138,0.5) 50%, rgba(7,13,28,0.95) 100%)",
+          }}
+        />
       </motion.div>
 
-      {/* Animated connection lines */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent"
-            style={{ top: `${20 + i * 15}%` }}
-            animate={{
-              x: ["-100%", "100%"],
-            }}
-            transition={{
-              duration: 8 + i * 2,
-              repeat: Infinity,
-              delay: i * 0.5,
-              ease: "linear",
-            }}
-          />
-        ))}
-      </div>
+      {/* Aurora */}
+      <motion.div
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: 8, repeat: Infinity }}
+        className="absolute top-20 right-20 w-[30vw] h-[30vw] rounded-full blur-[120px] z-[1]"
+        style={{ background: "rgba(107,138,255,0.2)" }}
+      />
 
-      {/* Pulsing orbs */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-20 right-20 w-64 h-64 bg-primary/20 rounded-full blur-[90px]"
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+      {/* Grain */}
+      <div className="absolute inset-0 bg-grain z-[2]" />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
-        <FadeIn direction="down" delay={0.2}>
-          <motion.div
-            className="flex items-center justify-center gap-2 mb-6"
-            animate={{ opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            <Mail className="w-4 h-4 text-primary" />
-            <p className="text-primary uppercase tracking-[0.3em] text-sm font-bold drop-shadow-[0_0_10px_rgba(55,83,157,0.8)]">
-              Contact
-            </p>
-            <Mail className="w-4 h-4 text-primary" />
-          </motion.div>
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+        <FadeIn>
+          <p className="text-xs uppercase tracking-[0.4em] text-primary font-semibold mb-8 flex items-center justify-center gap-3">
+            <span className="h-px w-12 bg-primary/60" />
+            Contact
+            <span className="h-px w-12 bg-primary/60" />
+          </p>
         </FadeIn>
-        
-        <FadeIn delay={0.4}>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-8 font-serif leading-tight uppercase">
-            <span className="relative inline-block">
-              CONTACTEZ
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary/40 to-secondary/40 blur-2xl -z-10 animate-pulse" />
-            </span>
-            <br />
-            NOTRE ÉGLISE
+
+        <FadeIn delay={0.2}>
+          <h1 className="font-display font-bold text-white text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-8 text-balance">
+            Disons-nous{" "}
+            <span className="font-display-italic text-gradient-gold">bonjour</span>.
           </h1>
         </FadeIn>
 
-        {/* Floating contact icons */}
+        <FadeIn delay={0.4}>
+          <p className="max-w-2xl mx-auto text-white/70 text-lg leading-relaxed mb-12">
+            Une question, un témoignage, ou juste envie d'échanger ? Nous serions ravis d'avoir de vos nouvelles.
+          </p>
+        </FadeIn>
+
         <FadeIn delay={0.6}>
-          <div className="flex items-center justify-center gap-8 mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             {[
-              { icon: Phone, delay: 0 },
-              { icon: Mail, delay: 0.2 },
-              { icon: MapPin, delay: 0.4 },
-            ].map((item, index) => (
+              { icon: Phone, label: "+228 90 00 00 00" },
+              { icon: Mail, label: "info@victoryoutreach.tg" },
+              { icon: MapPin, label: "Lomé, Togo" },
+            ].map((item, i) => (
               <motion.div
-                key={index}
-                className="backdrop-blur-xl bg-white/10 p-4 rounded-full border border-white/20"
-                animate={{
-                  y: [0, -10, 0],
-                }}
+                key={i}
+                animate={{ y: [0, -6, 0] }}
                 transition={{
-                  duration: 2,
+                  duration: 3,
                   repeat: Infinity,
-                  delay: item.delay,
+                  delay: i * 0.3,
+                  ease: "easeInOut",
                 }}
-                whileHover={{ scale: 1.1 }}
-                style={{
-                  boxShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
-                }}
+                className="glass-dark rounded-full px-5 py-3 flex items-center gap-3"
               >
-                <item.icon className="w-6 h-6 text-white" />
+                <item.icon className="w-4 h-4 text-primary" />
+                <span className="text-xs sm:text-sm text-white font-medium">
+                  {item.label}
+                </span>
               </motion.div>
             ))}
           </div>
         </FadeIn>
       </div>
+
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 z-[3] pointer-events-none"
+        style={{
+          background: "linear-gradient(to bottom, transparent, var(--bg-app))",
+        }}
+      />
     </div>
   );
 }

@@ -2,57 +2,66 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { ReactNode } from "react";
 
 interface ButtonProps {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "gold" | "ink" | "ghost" | "outline";
   size?: "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   fullWidth?: boolean;
+  withArrow?: boolean;
 }
 
 export function Button({
   children,
-  variant = "primary",
+  variant = "gold",
   size = "md",
   className,
   onClick,
   type = "button",
   fullWidth = false,
+  withArrow = false,
 }: ButtonProps) {
-  const baseStyles = "relative overflow-hidden font-bold uppercase tracking-widest rounded-sm transition-all duration-300 inline-flex items-center justify-center group";
-  
-  const variantStyles = {
-    primary: "bg-primary text-white hover:shadow-[0_0_20px_rgba(55,83,157,0.5)] hover:scale-105",
-    secondary: "bg-secondary text-white hover:shadow-[0_0_20px_rgba(191,139,37,0.5)] hover:scale-105",
-    tertiary: "bg-[#512b18] text-white hover:bg-[#3e2112] hover:scale-105",
+  const base =
+    "relative inline-flex items-center justify-center gap-2 font-semibold tracking-wide rounded-full overflow-hidden group transition-all duration-300 will-change-transform";
+
+  const variants = {
+    gold: "btn-gold",
+    ink: "btn-ink",
+    ghost: "btn-ghost",
+    outline:
+      "bg-transparent text-txt-main border border-border-strong hover:border-secondary hover:text-secondary",
   };
 
-  const sizeStyles = {
-    sm: "px-6 py-2 text-xs",
-    md: "px-8 py-3 text-sm",
-    lg: "px-10 py-4 text-sm",
+  const sizes = {
+    sm: "px-5 py-2.5 text-xs",
+    md: "px-7 py-3.5 text-sm",
+    lg: "px-9 py-4 text-sm",
   };
 
   return (
     <motion.button
       type={type}
       onClick={onClick}
+      whileTap={{ scale: 0.97 }}
       className={cn(
-        baseStyles,
-        variantStyles[variant],
-        sizeStyles[size],
+        base,
+        variants[variant],
+        sizes[size],
         fullWidth && "w-full",
-        className
+        className,
       )}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
     >
-      <span className="relative z-10">{children}</span>
-      <div className="absolute inset-0 h-full w-full scale-0 rounded-sm transition-all duration-300 group-hover:scale-100 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      <span className="relative z-10 flex items-center gap-2">
+        {children}
+        {withArrow && (
+          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:rotate-45" />
+        )}
+      </span>
     </motion.button>
   );
 }
