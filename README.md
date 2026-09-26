@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Terre de Victoire — site de l'église
 
-## Getting Started
+Site de **Victory Outreach Ministry International — filiale de Lomé (Terre de Victoire)**.
+Next.js 16 · React 19 · Tailwind CSS 4. Entièrement en français, pensé d'abord pour le téléphone.
 
-First, run the development server:
+## Ce que fait le site
+
+| Page | Contenu |
+| --- | --- |
+| `/` | Accueil : prochain culte + compte à rebours, programme de la semaine, vision, dernier culte, verset du jour, blog |
+| `/eglise` | Vision, mission, pasteurs, ce que nous croyons, questions pour une première visite |
+| `/direct` | Direct YouTube détecté automatiquement, rediffusions avec recherche et filtres |
+| `/bible` | Bible Louis Segond 1910 complète : recherche (référence ou mots), verset du jour, surlignage, partage, mode nuit/sépia, reprise de lecture |
+| `/blog` | Articles gérés depuis l'administration |
+| `/nous-trouver` | Carte interactive, distance depuis votre position, itinéraire Google Maps / Waze / Plans, formulaire de contact et de prière |
+| `/admin` | Espace équipe : articles, réglages du site, messages reçus |
+
+**Shalom**, la colombe du logo, guide les visiteurs de page en page (on peut la laisser se reposer).
+Les cultes s'ajoutent à l'agenda du téléphone via `/api/agenda` (fichier .ics).
+
+## Démarrer en local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # puis choisissez un ADMIN_PASSWORD
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sans base Redis, les articles, réglages et messages sont enregistrés dans `.data/` (ignoré par git).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Mettre en ligne (Vercel recommandé)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Importez le dépôt sur [vercel.com](https://vercel.com).
+2. **Storage → Upstash Redis** (offre gratuite) : les variables `UPSTASH_REDIS_REST_URL`/`TOKEN`
+   (ou `KV_REST_API_URL`/`TOKEN`) sont reconnues automatiquement. **Indispensable sur Vercel**,
+   sinon les modifications faites dans l'admin seraient perdues (un bandeau le rappelle dans l'admin).
+3. Ajoutez `ADMIN_PASSWORD` et `NEXT_PUBLIC_SITE_URL`.
+4. Facultatif : `YOUTUBE_API_KEY` (YouTube Data API v3, gratuite) pour plus de vidéos et une détection
+   plus fine des directs. Sans clé, le site lit le flux public de la chaîne (15 dernières vidéos).
 
-## Learn More
+## À compléter depuis `/admin/reglages`
 
-To learn more about Next.js, take a look at the following resources:
+- **TikTok / Instagram / WhatsApp** : liens à coller (vides = masqués).
+- **Noms et présentations des pasteurs** (les photos sont déjà en place).
+- **Adresse précise et coordonnées GPS** de l'église (la carte utilise pour l'instant un point dans Lomé).
+- **Téléphone et e-mail** de contact.
+- Horaires des cultes si besoin.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Pour les développeurs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+npm test          # tests unitaires (analyse YouTube, rendu Markdown sécurisé)
+npm run build
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `lib/store.ts` : stockage clé → JSON (Upstash REST ou fichiers).
+- `lib/youtube.ts` : directs et rediffusions (API ou flux RSS + page `/live`).
+- `data/bible/lsg.json` : Louis Segond 1910 (domaine public), généré par `scripts/build-bible.mjs`.
+- `proxy.ts` : protège `/admin` (session signée HMAC) ; chaque action serveur revérifie la session.
+- Couleurs de la charte (tirées du logo) dans `app/globals.css` (`@theme`).

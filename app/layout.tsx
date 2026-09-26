@@ -1,53 +1,63 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { ScrollProgress } from "@/components/ui/ScrollProgress";
-import type { Metadata } from "next";
-import { Fraunces, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
+const newsreader = localFont({
+  variable: "--font-newsreader",
   display: "swap",
-  axes: ["SOFT", "WONK", "opsz"],
+  src: [
+    { path: "./fonts/newsreader-latin-wght-normal.woff2", weight: "200 800", style: "normal" },
+    { path: "./fonts/newsreader-latin-wght-italic.woff2", weight: "200 800", style: "italic" },
+  ],
+  fallback: ["Times New Roman", "serif"],
+  // Police de secours recalibrée sur une serif : pas de saut de texte au chargement.
+  adjustFontFallback: "Times New Roman",
 });
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
+const figtree = localFont({
+  variable: "--font-figtree",
   display: "swap",
+  src: [{ path: "./fonts/figtree-latin-wght-normal.woff2", weight: "300 900", style: "normal" }],
+  fallback: ["system-ui", "sans-serif"],
 });
 
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
+const caveat = localFont({
+  variable: "--font-caveat",
   display: "swap",
+  preload: false,
+  src: [{ path: "./fonts/caveat-latin-600-normal.woff2", weight: "600", style: "normal" }],
+  fallback: ["cursive"],
 });
 
 export const metadata: Metadata = {
-  title: "Victory Outreach Ministry International — Lomé",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Terre de Victoire — Victory Outreach Ministry International, Lomé",
+    template: "%s · Terre de Victoire",
+  },
   description:
-    "Une église qui croit en la puissance transformatrice de l'évangile. Rejoignez la Terre de Victoire à Lomé, Togo.",
+    "Église Terre de Victoire à Lomé (Togo) : cultes en direct et rediffusions, Bible Louis Segond en ligne, blog et plan d'accès. Venez comme vous êtes.",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Terre de Victoire",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#17193a",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
-      <body
-        className={`${fraunces.variable} ${jakarta.variable} ${jetbrains.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ScrollProgress />
-          {children}
-        </ThemeProvider>
+    <html lang="fr" suppressHydrationWarning className={`${newsreader.variable} ${figtree.variable} ${caveat.variable}`}>
+      <body>
+        {/* Active les animations d'apparition seulement si le JS tourne. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {children}
       </body>
     </html>
   );
