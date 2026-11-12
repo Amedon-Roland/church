@@ -1,7 +1,7 @@
 "use client";
 
 import { getLiveStatus } from "@/lib/live-client";
-import { BookOpen, MapPin, MessageCircleHeart, Moon, Newspaper, PlayCircle, X } from "lucide-react";
+import { BookOpen, Images, MapPin, MessageCircleHeart, Moon, Newspaper, PlayCircle, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -9,11 +9,12 @@ import { Dove } from "./Dove";
 
 // Ce que Shalom dit en arrivant sur chaque page.
 const PAGE_LINES: [RegExp, string][] = [
-  [/^\/$/, "Je m'appelle Shalom. Je vous fais visiter ? Touchez-moi quand vous voulez."],
-  [/^\/eglise/, "Ici, vous découvrez qui nous sommes. Nos pasteurs ne mordent pas, promis !"],
-  [/^\/direct/, "Les cultes passés restent ici. Installez-vous, la Parole n'a pas de date de péremption."],
+  [/^\/$/, "Moi, c'est Shalom. Je vous fais visiter ? Touchez-moi quand vous voulez."],
+  [/^\/eglise/, "Ici, on vous dit qui nous sommes. Et nos pasteurs sont très abordables, promis !"],
+  [/^\/direct/, "Tous nos cultes sont ici. Installez-vous : la Parole n'a pas de date de péremption."],
   [/^\/bible\/[^/]+\/\d+/, "Touchez un verset pour le surligner, le copier ou l'envoyer à quelqu'un."],
   [/^\/bible/, "Tapez « Jean 3:16 » ou un mot comme « paix » : je trouve le passage."],
+  [/^\/galerie/, "Touchez une photo pour la voir en grand. Vous reconnaissez quelqu'un ?"],
   [/^\/blog\/.+/, "Bonne lecture. Si ce texte vous parle, partagez-le à quelqu'un qui en a besoin."],
   [/^\/blog/, "Des nouvelles de la famille, des méditations et des témoignages."],
   [/^\/nous-trouver/, "Appuyez sur « Itinéraire » : votre téléphone vous guide jusqu'à nous."],
@@ -147,7 +148,8 @@ export function Mascot() {
     { href: "/direct", label: live ? "Rejoindre le direct" : "Voir les cultes", Icon: PlayCircle, hot: live },
     { href: "/bible", label: "Lire la Bible", Icon: BookOpen },
     { href: "/nous-trouver", label: "Venir à l'église", Icon: MapPin },
-    { href: "/blog", label: "Lire le blog", Icon: Newspaper },
+    { href: "/galerie", label: "Voir les photos", Icon: Images },
+    { href: "/blog", label: "Lire les nouvelles", Icon: Newspaper },
     { href: "/nous-trouver#ecrire", label: "Confier une prière", Icon: MessageCircleHeart },
   ];
 
@@ -160,7 +162,7 @@ export function Mascot() {
           className="pointer-events-auto mb-2 w-[min(19rem,calc(100vw-1.5rem))] animate-rise rounded-2xl border border-line bg-card p-4 shadow-[var(--shadow-lift)]"
         >
           <div className="mb-3 flex items-start justify-between gap-2">
-            <p className="hand text-2xl text-royal">Où allons-nous ?</p>
+            <p className="font-display text-xl font-semibold tracking-[-0.02em] text-ink">Je vous emmène où ?</p>
             <button type="button" onClick={() => setPanel(false)} className="-mr-1 -mt-1 grid h-9 w-9 place-items-center rounded-full text-ink-mute hover:bg-linen hover:text-ink" aria-label="Fermer">
               <X className="h-4 w-4" />
             </button>
@@ -197,7 +199,7 @@ export function Mascot() {
 
       {bubble && !panel && (
         <div className="pointer-events-auto relative mb-1 mr-8 max-w-[min(16rem,calc(100vw-5rem))] animate-rise rounded-2xl rounded-br-sm border border-line bg-card px-4 py-3 shadow-[var(--shadow-lift)]" role="status" aria-live="polite">
-          <p className="hand text-[1.3rem] leading-[1.15] text-ink">{bubble}</p>
+          <p className="text-[0.98rem] font-medium leading-snug text-ink">{bubble}</p>
           <button
             type="button"
             onClick={() => setBubble(null)}
@@ -219,7 +221,7 @@ export function Mascot() {
         aria-expanded={panel}
         aria-label="Shalom, votre guide : ouvrir le menu d'aide"
       >
-        <Dove mood={bubble ? "talk" : "idle"} className="h-16 w-20 drop-shadow-[0_10px_14px_rgb(23_25_58/0.25)] sm:h-[4.6rem] sm:w-[5.5rem]" />
+        <Dove mood={bubble ? "talk" : "idle"} className="h-16 w-20 drop-shadow-[0_10px_14px_rgb(9_11_34/0.3)] sm:h-[4.6rem] sm:w-[5.5rem]" />
         {live && <span className="absolute right-3 top-2 h-3 w-3 rounded-full border-2 border-paper bg-live animate-live" />}
       </button>
     </div>

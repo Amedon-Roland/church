@@ -26,17 +26,17 @@ export default function BiblePage() {
         kicker="La Bible · Louis Segond 1910"
         title={
           <>
-            « Ta parole est une <em className="text-royal">lampe</em> à mes pieds. »
+            « Ta parole est une <em>lampe</em> à mes pieds. »
           </>
         }
-        lead="Psaume 119:105. Cherchez un passage, surlignez ce qui vous parle, et envoyez-le à quelqu'un qui en a besoin aujourd'hui."
+        lead="Psaume 119:105. Cherchez un passage, surlignez ce qui vous touche, et envoyez-le à quelqu'un qui en a besoin aujourd'hui. Tout est gratuit, sans compte à créer."
       >
-        <div className="mt-10 max-w-3xl" data-guide="Tapez « Jean 3:16 » ou un mot comme « paix » : je trouve le passage.">
+        <div className="mt-10 max-w-3xl" data-reveal data-guide="Tapez « Jean 3:16 » ou un mot comme « paix » : je trouve le passage.">
           <BibleSearch />
         </div>
       </PageIntro>
 
-      <div className="container-x pb-24">
+      <div className="container-x pb-28 pt-4">
         <ReadingCorner />
 
         <div className="mt-12">
@@ -45,22 +45,22 @@ export default function BiblePage() {
 
         {(["AT", "NT"] as const).map((t) => (
           <section key={t} className="mt-20">
-            <div className="reveal flex items-baseline justify-between gap-4 border-b border-line pb-4">
-              <h2 className="text-4xl text-ink">{t === "AT" ? "Ancien Testament" : "Nouveau Testament"}</h2>
+            <div className="flex items-baseline justify-between gap-4 border-b border-line pb-5">
+              <h2 data-split className="t-2 text-ink">{t === "AT" ? "Ancien Testament" : "Nouveau Testament"}</h2>
               <span className="text-sm text-ink-mute">{BOOKS.filter((b) => b.testament === t).length} livres</span>
             </div>
             <div className="mt-8 gap-x-10 sm:columns-2 lg:columns-3">
               {Object.entries(groups)
                 .filter(([k]) => k.startsWith(t))
                 .map(([k, books]) => (
-                  <div key={k} className="reveal mb-10 break-inside-avoid">
+                  <div key={k} className="mb-10 break-inside-avoid">
                     <p className="kicker mb-3">{k.split("|")[1]}</p>
                     <ul className="grid grid-cols-2 gap-x-4">
                       {books.map((b) => (
                         <li key={b.slug}>
-                          <Link href={chapterHref(b, 1)} className="group flex items-baseline justify-between gap-2 border-b border-dashed border-line py-2 text-ink hover:text-royal">
-                            <span className="truncate font-serif text-lg">{b.name}</span>
-                            <span className="text-xs text-ink-mute group-hover:text-royal">{b.chapters}</span>
+                          <Link href={chapterHref(b, 1)} className="group flex min-h-11 items-baseline justify-between gap-2 border-b border-line py-2.5 text-ink transition-colors hover:text-accent">
+                            <span className="truncate text-[1.05rem] font-medium">{b.name}</span>
+                            <span className="text-xs text-ink-mute group-hover:text-accent">{b.chapters}</span>
                           </Link>
                         </li>
                       ))}

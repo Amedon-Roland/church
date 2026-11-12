@@ -55,7 +55,7 @@ export function ChurchMap({ lat, lng, address, hint }: { lat: number; lng: numbe
 
   return (
     <div className="card overflow-hidden">
-      <div ref={box} className="relative h-[22rem] bg-linen sm:h-[28rem] lg:h-[32rem]">
+      <div ref={box} data-lenis-prevent className="relative h-[22rem] bg-linen sm:h-[28rem] lg:h-[34rem]">
         {visible ? (
           <MapCanvas lat={lat} lng={lng} label={address} user={user} />
         ) : (
@@ -66,22 +66,23 @@ export function ChurchMap({ lat, lng, address, hint }: { lat: number; lng: numbe
         <button
           type="button"
           onClick={locate}
-          className="absolute left-3 top-3 z-[500] inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-semibold text-ink shadow-[var(--shadow-lift)] hover:text-royal"
+          className="absolute left-3 top-3 z-[500] inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-semibold text-ink shadow-[var(--shadow-lift)] hover:text-accent"
+          aria-live="polite"
         >
           {status === "locating" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Crosshair className="h-4 w-4" />}
-          {km !== null ? `Vous êtes à ${km < 1 ? `${Math.round(km * 1000)} m` : `${km.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} km`}` : "Où suis-je par rapport à l'église ?"}
+          {km !== null ? `Vous êtes à ${km < 1 ? `${Math.round(km * 1000)} m` : `${km.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} km`}` : "À quelle distance suis-je ?"}
         </button>
       </div>
 
       <div className="grid gap-5 p-5 sm:p-6 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
-          <p className="font-serif text-2xl text-ink">{address}</p>
+          <p className="t-3 font-display font-semibold text-ink">{address}</p>
           {hint && <p className="mt-1 text-ink-soft">{hint}</p>}
-          {status === "denied" && <p className="mt-2 text-sm text-live">Position indisponible. Vérifiez que la localisation est autorisée pour ce site.</p>}
+          {status === "denied" && <p role="alert" className="mt-2 text-sm font-semibold text-ink">Impossible de vous localiser. Vérifiez que la localisation est autorisée pour ce site, puis réessayez.</p>}
         </div>
         <div className="flex flex-wrap gap-2">
           <a href={`https://www.google.com/maps/dir/?api=1&destination=${dest}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary !min-h-11 text-sm">
-            <Navigation className="h-4 w-4" /> Itinéraire
+            <Navigation aria-hidden className="h-4 w-4" /> M&apos;y conduire
           </a>
           <a href={`https://waze.com/ul?ll=${dest}&navigate=yes`} target="_blank" rel="noopener noreferrer" className="btn btn-line !min-h-11 text-sm text-ink">
             Waze
@@ -100,7 +101,7 @@ export function ChurchMap({ lat, lng, address, hint }: { lat: number; lng: numbe
             }}
             className="btn btn-line !min-h-11 text-sm text-ink"
           >
-            <Copy className="h-4 w-4" /> {copied ? "Copié !" : "Copier"}
+            <Copy className="h-4 w-4" /> {copied ? "Adresse copiée !" : "Copier l'adresse"}
           </button>
         </div>
       </div>

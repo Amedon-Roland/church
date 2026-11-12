@@ -47,7 +47,7 @@ export const DEFAULT_SETTINGS: Settings = {
   shortName: "Terre de Victoire",
   city: "Lomé, Togo",
   address: "Lomé, Togo",
-  addressHint: "Demandez « Terre de Victoire » dans le quartier, tout le monde nous connaît.",
+  addressHint: "Un doute en chemin ? Demandez « Terre de Victoire » dans le quartier, on vous indiquera la route.",
   lat: 6.1319,
   lng: 1.2113,
   phone: "",
@@ -62,9 +62,9 @@ export const DEFAULT_SETTINGS: Settings = {
   youtubeHandle: "@egliseterredevictoiretogo",
   youtubeChannelId: "",
   services: [
-    { day: "Dimanche", weekday: 0, time: "10:00", title: "Culte de célébration", note: "Louange, Parole et communion. Accueil des enfants." },
-    { day: "Mercredi", weekday: 3, time: "19:00", title: "Étude biblique", note: "On ouvre la Bible ensemble, questions bienvenues." },
-    { day: "Vendredi", weekday: 5, time: "19:00", title: "Soirée de prière", note: "Intercession pour nos familles, Lomé et le Togo." },
+    { day: "Dimanche", weekday: 0, time: "10:00", title: "Culte de célébration", note: "On chante, on prie, on écoute la Parole — et on prend le temps de se saluer. Les enfants ont leur moment à eux." },
+    { day: "Mercredi", weekday: 3, time: "19:00", title: "Étude biblique", note: "On ouvre la Bible ensemble, tranquillement. Aucune question n'est bête." },
+    { day: "Vendredi", weekday: 5, time: "19:00", title: "Soirée de prière", note: "On porte dans la prière nos familles, notre ville et notre pays." },
   ],
   leaders: [
     { name: "", role: "Pasteur principal", photo: "/images/pasteur-1.jpg", bio: "" },
@@ -76,10 +76,11 @@ export const DEFAULT_SETTINGS: Settings = {
 export const NAV = [
   { href: "/", label: "Accueil" },
   { href: "/eglise", label: "L'église" },
-  { href: "/direct", label: "Direct & replays" },
+  { href: "/direct", label: "Cultes en vidéo" },
   { href: "/bible", label: "Bible" },
-  { href: "/blog", label: "Blog" },
-  { href: "/nous-trouver", label: "Nous trouver" },
+  { href: "/galerie", label: "Galerie" },
+  { href: "/blog", label: "Nouvelles" },
+  { href: "/nous-trouver", label: "Venir nous voir" },
 ] as const;
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";

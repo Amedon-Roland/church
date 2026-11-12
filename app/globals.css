@@ -1,145 +1,277 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   Terre de Victoire — charte tirée du logo
-   Bleu roi du sceau · nuit profonde · or des lettres · brun de la croix
-   · blanc de la colombe, posés sur un papier ivoire.
+   Terre de Victoire — « Tissés ensemble »
+   L'indigo et l'or du sceau, la terre rouge de Lomé, et une bande
+   tissée (comme un pagne kété) qui relie les pages entre elles.
+   Deux ambiances : Jour (chaux claire) et Veillée (indigo de nuit).
    ------------------------------------------------------------------ */
 
-@theme {
-  --color-paper: #faf6ee;
-  --color-linen: #f2ebde;
-  --color-card: #fffdf8;
-  --color-ink: #17193a;
-  --color-ink-soft: #494c69;
-  --color-ink-mute: #767891;
-  --color-royal: #2e4b97;
-  --color-royal-deep: #232766;
-  --color-night: #111330;
-  --color-gold: #c9922d;
-  --color-gold-ink: #8a5f12;
-  --color-gold-soft: #f1ddb0;
-  --color-earth: #5b3522;
-  --color-line: #e3d8c3;
-  --color-live: #d6332b;
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .on-dark, .on-dark *));
 
+:root,
+.theme-light {
+  color-scheme: light;
+  --paper: #f5f2eb;
+  --linen: #ebe6da;
+  --card: #fffdf9;
+  --ink: #15173a;
+  --ink-soft: #43466a;
+  --ink-mute: #62657f;
+  --accent: #2a3f9e;
+  --royal: #2a3f9e;
+  --royal-deep: #1f2c78;
+  --gold-ink: #7d5208;
+  --gold-soft: #f4e2b8;
+  --earth: #a03c22;
+  --line: #d9d1c0;
+  --btn-bg: #2a3f9e;
+  --btn-bg-hover: #1f2c78;
+  --btn-fg: #ffffff;
+  --focus: #2a3f9e;
+  --shadow-color: 21 23 58;
+}
+
+:root[data-theme="dark"],
+.on-dark {
+  color-scheme: dark;
+  --paper: #0e1030;
+  --linen: #14173f;
+  --card: #1a1d4b;
+  --ink: #f3efe6;
+  --ink-soft: #c6c7da;
+  --ink-mute: #9a9cb8;
+  --accent: #aebbff;
+  --royal: #3d52c4;
+  --royal-deep: #2f41a6;
+  --gold-ink: #f0be55;
+  --gold-soft: #4a3b14;
+  --earth: #f0906f;
+  --line: #2c3069;
+  --btn-bg: #e9ad36;
+  --btn-bg-hover: #f3c05a;
+  --btn-fg: #0e1030;
+  --focus: #f0be55;
+  --shadow-color: 0 0 12;
+}
+
+/* Une section sombre posée dans la page (pied de page, vidéos, verset). */
+.on-dark {
+  --paper: #090b22;
+  --linen: #10133a;
+  --card: #151842;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-linen: var(--linen);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mute: var(--ink-mute);
+  --color-accent: var(--accent);
+  --color-royal: var(--royal);
+  --color-royal-deep: var(--royal-deep);
+  --color-gold-ink: var(--gold-ink);
+  --color-gold-soft: var(--gold-soft);
+  --color-earth: var(--earth);
+  --color-line: var(--line);
+  /* Teintes fixes, identiques de jour comme de nuit */
+  --color-night: #090b22;
+  --color-snow: #f3efe6;
+  --color-gold: #e9ad36;
+  --color-clay: #b5482a;
+  --color-indigo: #2a3f9e;
+  --color-live: #cf2f27;
+
+  --font-display: var(--font-bricolage), "Avenir Next", system-ui, sans-serif;
   --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-figtree), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-hand: var(--font-caveat), "Segoe Print", cursive;
 
   --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --shadow-paper: 0 1px 0 rgb(23 25 58 / 0.04), 0 12px 32px -18px rgb(23 25 58 / 0.28);
-  --shadow-lift: 0 2px 0 rgb(23 25 58 / 0.04), 0 26px 50px -24px rgb(23 25 58 / 0.4);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-paper: 0 1px 0 rgb(var(--shadow-color) / 0.04), 0 14px 34px -20px rgb(var(--shadow-color) / 0.3);
+  --shadow-lift: 0 2px 0 rgb(var(--shadow-color) / 0.04), 0 28px 54px -26px rgb(var(--shadow-color) / 0.45);
 }
 
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5.5rem;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
+    scroll-padding-top: 6rem;
+    background: var(--paper);
   }
   body {
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: var(--paper);
+    color: var(--ink);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    transition:
+      background-color 0.4s var(--ease-soft),
+      color 0.4s var(--ease-soft);
+  }
+  .on-dark,
+  .theme-light {
+    color: var(--ink);
   }
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    line-height: 1.08;
-    letter-spacing: -0.015em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
     text-wrap: balance;
+  }
+  /* Le mot qui compte, dit plus doucement : italique de la serif biblique */
+  h1 em,
+  h2 em,
+  h3 em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  .on-dark h1 em,
+  .on-dark h2 em,
+  .on-dark h3 em {
+    color: var(--color-gold);
   }
   p {
     text-wrap: pretty;
   }
   ::selection {
-    background: var(--color-gold-soft);
-    color: var(--color-ink);
+    background: var(--color-gold);
+    color: #090b22;
   }
   :focus-visible {
-    outline: 2px solid var(--color-royal);
+    outline: 3px solid var(--focus);
     outline-offset: 3px;
     border-radius: 6px;
   }
   button,
-  [role="button"] {
+  [role="button"],
+  summary {
     cursor: pointer;
+  }
+  /* Champs de formulaire : le navigateur suit le thème */
+  input,
+  textarea,
+  select {
+    color-scheme: inherit;
   }
 }
 
-/* ---------- Petits éléments de langage visuel ---------- */
+/* ---------- Lenis (défilement adouci) ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ---------- Langage visuel ---------- */
 
 @layer components {
   .container-x {
     width: 100%;
-    max-width: 76rem;
+    max-width: 80rem;
     margin-inline: auto;
-    padding-inline: 1rem;
+    padding-inline: 1.25rem;
   }
   @media (min-width: 640px) {
-    .container-x {
-      padding-inline: 1.5rem;
-    }
-  }
-  @media (min-width: 1024px) {
     .container-x {
       padding-inline: 2rem;
     }
   }
+  @media (min-width: 1024px) {
+    .container-x {
+      padding-inline: 3rem;
+    }
+  }
 
-  /* Sur-titre façon bulletin paroissial : petites capitales + filet doré */
+  .section {
+    padding-block: clamp(4.5rem, 10vw, 9rem);
+  }
+
+  /* Tailles de titres fluides */
+  .t-hero {
+    font-size: clamp(2.9rem, 9.2vw, 8rem);
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+  }
+  .t-1 {
+    font-size: clamp(2.5rem, 6.4vw, 5.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+  .t-2 {
+    font-size: clamp(2.1rem, 4.6vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .t-3 {
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+  .lead {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* Sur-titre : un petit carré tissé + capitales espacées */
   .kicker {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    gap: 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-gold-ink);
+    color: var(--gold-ink);
   }
   .kicker::before {
     content: "";
-    width: 1.75rem;
-    height: 1px;
-    background: currentColor;
-  }
-  .on-dark .kicker {
-    color: var(--color-gold);
+    width: 0.6rem;
+    height: 0.6rem;
+    flex: none;
+    background:
+      linear-gradient(var(--earth), var(--earth)) 0 0 / 50% 50% no-repeat,
+      linear-gradient(var(--earth), var(--earth)) 100% 100% / 50% 50% no-repeat,
+      var(--color-gold);
   }
 
-  /* Annotation manuscrite dans la marge */
+  /* Ancien style manuscrit : désormais une italique douce */
   .hand {
-    font-family: var(--font-hand);
-    font-weight: 600;
-    line-height: 1.1;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.15;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.55rem;
-    min-height: 2.9rem;
-    padding: 0.7rem 1.35rem;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.95rem;
+    font-weight: 650;
+    font-size: 0.97rem;
     line-height: 1.2;
     transition:
-      transform 0.25s var(--ease-soft),
+      transform 0.3s var(--ease-soft),
       background-color 0.25s,
       color 0.25s,
       box-shadow 0.25s,
@@ -147,52 +279,65 @@
     -webkit-tap-highlight-color: transparent;
   }
   .btn:active {
-    transform: translateY(1px) scale(0.99);
+    transform: scale(0.97);
+  }
+  .btn svg {
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .btn:hover svg.arrow {
+    transform: translateX(4px);
   }
   .btn-primary {
-    background: var(--color-royal);
-    color: #fff;
-    box-shadow: 0 10px 24px -14px rgb(46 75 151 / 0.9);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
   }
   .btn-primary:hover {
-    background: var(--color-royal-deep);
+    background: var(--btn-bg-hover);
   }
   .btn-gold {
     background: var(--color-gold);
-    color: var(--color-night);
+    color: #090b22;
   }
   .btn-gold:hover {
-    background: #d9a23e;
+    background: #f3c05a;
   }
   .btn-line {
-    border: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+    border: 1.5px solid color-mix(in oklab, currentColor 35%, transparent);
   }
   .btn-line:hover {
     border-color: currentColor;
+    background: color-mix(in oklab, currentColor 7%, transparent);
   }
 
   .card {
-    background: var(--color-card);
-    border: 1px solid var(--color-line);
-    border-radius: 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
     box-shadow: var(--shadow-paper);
   }
 
   /* Lien souligné qui se dessine */
   .link-draw {
-    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-    transition: background-size 0.35s var(--ease-soft);
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat;
+    transition: background-size 0.4s var(--ease-out-expo);
   }
-  .link-draw:hover {
-    background-size: 100% 1px;
+  .link-draw:hover,
+  a:hover > .link-draw,
+  a:focus-visible > .link-draw {
+    background-size: 100% 1.5px;
   }
 
-  /* Filet décoratif : deux traits + un losange doré */
+  /* Porte en arche : la forme des photos et des panneaux */
+  .arch {
+    border-radius: 999px 999px 1.5rem 1.5rem;
+    overflow: hidden;
+  }
+
   .ornament {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: var(--color-gold);
+    color: var(--gold-ink);
   }
   .ornament::before,
   .ornament::after {
@@ -205,39 +350,61 @@
     background: linear-gradient(270deg, transparent, currentColor);
   }
 
-  /* Texture de papier très légère (SVG inline, pas de requête) */
+  /* Conservé pour compatibilité : plus de grain, la page reste nette */
   .paper-grain {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image: none;
+  }
+
+  /* Champs */
+  .field {
+    width: 100%;
+    border-radius: 0.9rem;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+    padding: 0.8rem 1rem;
+    color: var(--ink);
+    transition:
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+  .field::placeholder {
+    color: var(--ink-mute);
+  }
+  .field:focus {
+    border-color: var(--focus);
+    background: var(--card);
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--focus) 25%, transparent);
   }
 
   /* Contenu d'article */
   .prose-church {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: var(--color-ink-soft);
+    color: var(--ink-soft);
   }
   .prose-church > * + * {
     margin-top: 1.25em;
   }
   .prose-church h2,
   .prose-church h3 {
-    color: var(--color-ink);
+    color: var(--ink);
     margin-top: 2em;
   }
   .prose-church h2 {
-    font-size: 1.75rem;
+    font-size: 1.85rem;
   }
   .prose-church h3 {
-    font-size: 1.35rem;
+    font-size: 1.4rem;
   }
   .prose-church a {
-    color: var(--color-royal);
+    color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
+    text-decoration-thickness: 1.5px;
   }
   .prose-church strong {
-    color: var(--color-ink);
+    color: var(--ink);
     font-weight: 650;
   }
   .prose-church ul,
@@ -254,10 +421,9 @@
     content: "";
     position: absolute;
     left: -1.1rem;
-    top: 0.75em;
+    top: 0.72em;
     width: 0.4rem;
     height: 0.4rem;
-    rotate: 45deg;
     background: var(--color-gold);
   }
   .prose-church ol {
@@ -267,61 +433,60 @@
     margin-top: 0.5em;
   }
   .prose-church blockquote {
-    border-left: 2px solid var(--color-gold);
+    border-left: 3px solid var(--color-gold);
     padding: 0.25rem 0 0.25rem 1.25rem;
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 1.3rem;
-    line-height: 1.55;
-    color: var(--color-ink);
+    font-size: 1.35rem;
+    line-height: 1.5;
+    color: var(--ink);
   }
   .prose-church img {
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     width: 100%;
     height: auto;
   }
   .prose-church hr {
     border: 0;
     height: 1px;
-    background: var(--color-line);
+    background: var(--line);
     margin-block: 2.5rem;
   }
   .prose-church code {
     font-size: 0.9em;
-    background: var(--color-linen);
+    background: var(--linen);
     padding: 0.1em 0.35em;
     border-radius: 0.3em;
   }
 }
 
-/* ---------- Apparition au défilement (déclenchée par RevealObserver) ---------- */
+/* ---------- Mouvement ----------
+   Tout est visible par défaut. Les états de départ ne s'appliquent que si
+   le JavaScript tourne ET que la personne n'a pas demandé moins d'animations
+   (classe « motion » posée par le script du <head>). GSAP prend ensuite le relais. */
 
-@media (prefers-reduced-motion: no-preference) {
-  .js .reveal {
-    opacity: 0;
-    translate: 0 18px;
-    transition:
-      opacity 0.8s var(--ease-soft),
-      translate 0.8s var(--ease-soft);
-    transition-delay: var(--delay, 0ms);
-  }
-  .js .reveal.is-in {
-    opacity: 1;
-    translate: 0 0;
-  }
+.motion [data-reveal],
+.motion [data-reveal-group] > * {
+  opacity: 0;
+}
+.motion [data-split] {
+  visibility: hidden;
+}
+/* Filet de sécurité : si les animations n'ont pas démarré, on montre tout. */
+.motion.motion-failed [data-reveal],
+.motion.motion-failed [data-reveal-group] > * {
+  opacity: 1;
+}
+.motion.motion-failed [data-split] {
+  visibility: visible;
 }
 
-@keyframes spin-slow {
-  to {
-    rotate: 360deg;
-  }
-}
 @keyframes live-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgb(214 51 43 / 0.55);
+    box-shadow: 0 0 0 0 rgb(207 47 39 / 0.55);
   }
   100% {
-    box-shadow: 0 0 0 10px rgb(214 51 43 / 0);
+    box-shadow: 0 0 0 10px rgb(207 47 39 / 0);
   }
 }
 @keyframes rise {
@@ -334,15 +499,29 @@
     translate: 0 0;
   }
 }
-
-@utility animate-spin-slow {
-  animation: spin-slow 60s linear infinite;
+@keyframes weave-slide {
+  to {
+    transform: translateX(-112px);
+  }
 }
+@keyframes ray-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @utility animate-live {
   animation: live-pulse 1.6s ease-out infinite;
 }
 @utility animate-rise {
-  animation: rise 0.9s var(--ease-soft) both;
+  animation: rise 0.7s var(--ease-out-expo) both;
+}
+@utility animate-rays {
+  animation: ray-breathe 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -352,6 +531,7 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -422,7 +602,7 @@
   border-radius: 50% 50% 50% 0;
   rotate: -45deg;
   background: var(--color-gold);
-  box-shadow: 0 10px 20px -8px rgb(23 25 58 / 0.6);
+  box-shadow: 0 10px 20px -8px rgb(9 11 34 / 0.6);
   display: grid;
   place-items: center;
 }
@@ -436,16 +616,20 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--color-royal);
+  background: var(--color-indigo);
   border: 3px solid #fff;
-  box-shadow: 0 0 0 6px rgb(46 75 151 / 0.25);
+  box-shadow: 0 0 0 6px rgb(42 63 158 / 0.25);
 }
 .leaflet-container {
   font-family: var(--font-sans);
-  background: var(--color-linen);
+  background: var(--linen);
 }
 .leaflet-popup-content-wrapper {
   border-radius: 14px;
+}
+/* La carte reste lisible la nuit : on assombrit doucement les tuiles */
+[data-theme="dark"] .leaflet-tile-pane {
+  filter: brightness(0.82) contrast(1.05) saturate(0.85);
 }
 body[data-sheet] .mascot {
   display: none;
@@ -456,6 +640,31 @@ body[data-sheet] .mascot {
   animation: verse-flash 2.6s ease-out;
 }
 @keyframes verse-flash {
-  0%, 40% { background-color: rgb(201 146 45 / 0.35); }
+  0%, 40% { background-color: rgb(233 173 54 / 0.4); }
   100% { background-color: transparent; }
+}
+
+/* Mode contrastes forcés (Windows) : on garde les contours utiles */
+@media (forced-colors: active) {
+  .btn,
+  .card,
+  .field {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Titres découpés : on laisse respirer les jambages sous le masque */
+.sl-mask {
+  padding-block: 0.14em;
+  margin-block: -0.14em;
+}
+
+/* Bascule de thème : fondu en cercle (API View Transitions) */
+.theme-switching::view-transition-old(root),
+.theme-switching::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+.theme-switching body {
+  transition: none;
 }

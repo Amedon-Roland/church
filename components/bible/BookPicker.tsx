@@ -37,6 +37,7 @@ export function BookPicker({ current, chapter, className = "" }: { current: Book
         <ChevronDown className="h-4 w-4 opacity-60" />
       </button>
       <dialog
+        data-lenis-prevent
         ref={dialog}
         onClick={(e) => e.target === dialog.current && dialog.current?.close()}
         className="m-auto max-h-[85dvh] w-[min(40rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl bg-card p-0 text-ink shadow-2xl backdrop:bg-night/60 backdrop:backdrop-blur-sm"
@@ -95,7 +96,7 @@ export function BookPicker({ current, chapter, className = "" }: { current: Book
                           dialog.current?.close();
                           router.push(chapterHref(b, 1));
                         }}
-                        className={`rounded-lg px-3 py-2 text-left text-[0.95rem] transition-colors hover:bg-linen ${b.index === current.index ? "font-semibold text-royal" : ""}`}
+                        className={`rounded-lg px-3 py-2 text-left text-[0.95rem] transition-colors hover:bg-linen ${b.index === current.index ? "font-semibold text-accent" : ""}`}
                       >
                         {b.name}
                       </button>

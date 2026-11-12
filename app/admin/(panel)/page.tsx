@@ -15,7 +15,7 @@ export default async function Dashboard() {
 
   return (
     <>
-      <p className="hand text-3xl text-royal">{hour < 12 ? "Bonjour" : hour < 18 ? "Bon après-midi" : "Bonsoir"} !</p>
+      <p className="hand text-3xl text-accent">{hour < 12 ? "Bonjour" : hour < 18 ? "Bon après-midi" : "Bonsoir"} !</p>
       <h1 className="mt-1 text-4xl text-ink sm:text-5xl">Tableau de bord</h1>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -47,7 +47,7 @@ export default async function Dashboard() {
           <ul className="mt-4 divide-y divide-line">
             {posts.slice(0, 5).map((p) => (
               <li key={p.id}>
-                <Link href={`/admin/articles/${p.id}`} className="flex items-center justify-between gap-3 py-3 hover:text-royal">
+                <Link href={`/admin/articles/${p.id}`} className="flex items-center justify-between gap-3 py-3 hover:text-accent">
                   <span className="min-w-0 truncate">{p.title}</span>
                   <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs ${p.status === "draft" ? "bg-gold-soft text-gold-ink" : "bg-linen text-ink-mute"}`}>
                     {p.status === "draft" ? "Brouillon" : formatDate(p.publishedAt)}
@@ -75,7 +75,7 @@ export default async function Dashboard() {
               ))}
             </ul>
           )}
-          <Link href="/admin/messages" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-royal">
+          <Link href="/admin/messages" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent">
             Tous les messages <ArrowRight className="h-4 w-4" />
           </Link>
         </section>

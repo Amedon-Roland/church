@@ -109,7 +109,7 @@ export function BibleSearch() {
         <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
           <span className="text-ink-mute">Essayez :</span>
           {EXAMPLES.map((ex) => (
-            <button key={ex} type="button" onClick={() => setQ(ex)} className="rounded-full border border-line bg-card px-3 py-1 text-ink-soft hover:border-royal hover:text-royal">
+            <button key={ex} type="button" onClick={() => setQ(ex)} className="rounded-full border border-line bg-card px-3 py-1 text-ink-soft hover:border-royal hover:text-accent">
               {ex}
             </button>
           ))}

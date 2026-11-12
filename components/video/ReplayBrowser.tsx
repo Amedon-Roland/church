@@ -6,6 +6,7 @@ import type { Video } from "@/lib/youtube";
 import { Bell, Search } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { scrollToEl } from "@/lib/scroll";
 import { LiteYouTube } from "./LiteYouTube";
 
 type Props = {
@@ -57,22 +58,22 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
   function play(v: Video) {
     setSelected(v);
     window.history.replaceState(null, "", `/direct?v=${v.id}`);
-    player.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (player.current) scrollToEl(player.current);
   }
 
   return (
     <>
-      <section className="on-dark bg-night pb-16 pt-8 text-paper sm:pt-12 lg:pb-20">
+      <section className="on-dark bg-night pb-16 pt-10 sm:pt-12 lg:pb-20">
         <div ref={player} className="container-x scroll-mt-24">
           <div className="grid gap-8 lg:grid-cols-[1.8fr_1fr] lg:gap-10">
             <div>
               {selected ? (
                 <LiteYouTube key={selected.id} id={selected.id} title={selected.title} thumbnail={selected.thumbnail} live={selected.kind === "live"} priority />
               ) : (
-                <div className="grid aspect-video place-items-center rounded-2xl border border-paper/10 bg-paper/[0.03] p-6 text-center">
+                <div className="grid aspect-video place-items-center rounded-2xl border border-line bg-snow/[0.03] p-6 text-center">
                   <div>
-                    <p className="font-serif text-2xl text-paper sm:text-3xl">Nos cultes sont sur YouTube</p>
-                    <p className="mx-auto mt-2 max-w-sm text-sm text-paper/60">La liste des vidéos se charge automatiquement ici. En attendant, retrouvez tous nos directs sur la chaîne.</p>
+                    <p className="font-display text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">Nos cultes sont filmés</p>
+                    <p className="mx-auto mt-2 max-w-sm text-sm text-ink-mute">Les vidéos s&apos;affichent ici dès qu&apos;elles sont disponibles. En attendant, tout est sur notre chaîne YouTube.</p>
                     <a href={channelUrl} target="_blank" rel="noopener noreferrer" className="btn btn-gold mt-5">
                       Ouvrir la chaîne YouTube
                     </a>
@@ -81,8 +82,8 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
               )}
               {selected && (
                 <div className="mt-5">
-                  <h2 className="text-2xl leading-snug sm:text-3xl">{selected.title}</h2>
-                  <p className="mt-2 text-sm text-paper/55">
+                  <h2 className="t-3 text-ink">{selected.title}</h2>
+                  <p className="mt-2 text-sm text-ink-mute">
                     {selected.kind === "live" ? "En direct maintenant" : formatDate(selected.publishedAt)}
                     {selected.kind !== "live" && selected.views !== undefined && ` · ${formatViews(selected.views)}`}
                   </p>
@@ -92,11 +93,11 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
 
             <aside className="space-y-4">
               {live ? (
-                <div className="rounded-2xl bg-live p-6">
+                <div className="rounded-2xl bg-live p-6 text-white">
                   <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
                     <span className="h-2.5 w-2.5 rounded-full bg-white animate-live" /> En direct
                   </p>
-                  <p className="mt-3 font-serif text-2xl leading-snug">{live.title}</p>
+                  <p className="mt-3 font-display text-2xl font-semibold leading-snug tracking-[-0.02em]">{live.title}</p>
                   {selected?.id !== live.id && (
                     <button type="button" onClick={() => play(live)} className="btn mt-5 bg-white text-live">
                       Rejoindre le direct
@@ -104,12 +105,12 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
                   )}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-paper/10 bg-paper/[0.04] p-6">
+                <div className="rounded-2xl border border-line bg-snow/[0.04] p-6">
                   <p className="kicker">Prochain direct</p>
                   {upcoming ? (
                     <>
-                      <p className="mt-3 font-serif text-2xl leading-snug">{upcoming.title}</p>
-                      {upcoming.scheduledAt && <p className="mt-1 text-sm text-paper/60">{formatFull(upcoming.scheduledAt)}</p>}
+                      <p className="mt-3 font-display text-2xl font-semibold leading-snug tracking-[-0.02em]">{upcoming.title}</p>
+                      {upcoming.scheduledAt && <p className="mt-1 text-sm text-ink-mute">{formatFull(upcoming.scheduledAt)}</p>}
                       {upcoming.scheduledAt && (
                         <div className="mt-5">
                           <Countdown target={upcoming.scheduledAt} tone="dark" />
@@ -118,8 +119,8 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
                     </>
                   ) : next ? (
                     <>
-                      <p className="mt-3 font-serif text-2xl leading-snug">{next.title}</p>
-                      <p className="mt-1 text-sm text-paper/60">{formatFull(next.at)}</p>
+                      <p className="mt-3 font-display text-2xl font-semibold leading-snug tracking-[-0.02em]">{next.title}</p>
+                      <p className="mt-1 text-sm text-ink-mute">{formatFull(next.at)}</p>
                       <div className="mt-5">
                         <Countdown target={next.at} tone="dark" />
                       </div>
@@ -131,14 +132,14 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
                 href={`${channelUrl}${channelUrl.includes("?") ? "&" : "?"}sub_confirmation=1`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-2xl border border-paper/10 p-5 transition-colors hover:border-gold"
+                className="flex items-center gap-4 rounded-2xl border border-line p-5 transition-colors hover:border-gold"
               >
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold text-night">
                   <Bell className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-semibold">Ne ratez plus un direct</span>
-                  <span className="block text-sm text-paper/60">Abonnez-vous et activez la cloche sur YouTube.</span>
+                  <span className="block font-semibold text-ink">Soyez prévenu du prochain direct</span>
+                  <span className="block text-sm text-ink-mute">Abonnez-vous à la chaîne et activez la cloche.</span>
                 </span>
               </a>
             </aside>
@@ -151,8 +152,8 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
           <div className="container-x">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="kicker">Rediffusions</p>
-                <h2 className="mt-3 text-4xl text-ink">Tous les cultes et vidéos</h2>
+                <p className="kicker">À revoir</p>
+                <h2 className="t-2 mt-5 text-ink">Tous nos cultes, <em>à votre rythme.</em></h2>
               </div>
               <label className="relative block w-full sm:w-72">
                 <span className="sr-only">Rechercher une vidéo</span>
@@ -161,8 +162,8 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
                   type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Rechercher un message…"
-                  className="w-full rounded-full border border-line bg-card py-3 pl-11 pr-4 text-ink focus:border-royal focus:outline-none"
+                  placeholder="Chercher un thème, un titre…"
+                  className="field !rounded-full !bg-card !pl-11"
                 />
               </label>
             </div>
@@ -173,7 +174,8 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
                     key={value}
                     type="button"
                     onClick={() => setFilter(value)}
-                    className={`rounded-full border px-4 py-1.5 text-sm font-medium ${filter === value ? "border-ink bg-ink text-paper" : "border-line text-ink-soft hover:border-ink"}`}
+                    aria-pressed={filter === value}
+                    className={`min-h-11 rounded-full border px-5 py-2 text-sm font-semibold transition-colors ${filter === value ? "border-ink bg-ink text-paper" : "border-line text-ink-soft hover:border-ink"}`}
                   >
                     {label}
                   </button>
@@ -185,12 +187,12 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
               {filtered.slice(0, limit).map((v) => (
                 <li key={v.id}>
                   <button type="button" onClick={() => play(v)} className="group block w-full text-left" aria-current={selected?.id === v.id}>
-                    <span className="relative block aspect-video overflow-hidden rounded-xl bg-linen">
-                      <Image src={v.thumbnail} alt="" fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                      {selected?.id === v.id && <span className="absolute inset-0 grid place-items-center bg-night/60 text-sm font-semibold text-paper">En lecture</span>}
-                      {v.kind === "replay" && <span className="absolute left-3 top-3 rounded-full bg-night/80 px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-paper">Rediffusion</span>}
+                    <span className="relative block aspect-video overflow-hidden rounded-2xl bg-linen">
+                      <Image src={v.thumbnail} alt="" fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.05]" />
+                      {selected?.id === v.id && <span className="absolute inset-0 grid place-items-center bg-night/65 text-sm font-semibold text-snow">En lecture</span>}
+                      {v.kind === "replay" && <span className="absolute left-3 top-3 rounded-full bg-night/80 px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-snow">Rediffusion</span>}
                     </span>
-                    <span className="mt-3 line-clamp-2 block font-serif text-xl leading-snug text-ink group-hover:text-royal">{v.title}</span>
+                    <span className="mt-3 line-clamp-2 block font-display text-xl font-semibold leading-snug tracking-[-0.02em] text-ink transition-colors group-hover:text-accent">{v.title}</span>
                     <span className="mt-1 block text-sm text-ink-mute">
                       {formatDate(v.publishedAt)}
                       {v.views !== undefined && ` · ${formatViews(v.views)}`}
@@ -199,7 +201,7 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
                 </li>
               ))}
             </ul>
-            {filtered.length === 0 && <p className="mt-10 text-ink-mute">Aucune vidéo ne correspond à « {query} ».</p>}
+            {filtered.length === 0 && <p role="status" className="mt-10 text-ink-mute">Rien trouvé pour « {query} ». Essayez un autre mot ?</p>}
             <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
               {filtered.length > limit && (
                 <button type="button" onClick={() => setLimit((l) => l + 12)} className="btn btn-line text-ink">

@@ -1,7 +1,8 @@
 # Terre de Victoire — site de l'église
 
 Site de **Victory Outreach Ministry International — filiale de Lomé (Terre de Victoire)**.
-Next.js 16 · React 19 · Tailwind CSS 4. Entièrement en français, pensé d'abord pour le téléphone.
+Next.js 16 · React 19 · Tailwind CSS 4 · GSAP + Lenis. Entièrement en français, pensé d'abord pour le téléphone,
+avec un thème clair (« Jour ») et un thème sombre (« Veillée »).
 
 ## Ce que fait le site
 
@@ -11,9 +12,10 @@ Next.js 16 · React 19 · Tailwind CSS 4. Entièrement en français, pensé d'ab
 | `/eglise` | Vision, mission, pasteurs, ce que nous croyons, questions pour une première visite |
 | `/direct` | Direct YouTube détecté automatiquement, rediffusions avec recherche et filtres |
 | `/bible` | Bible Louis Segond 1910 complète : recherche (référence ou mots), verset du jour, surlignage, partage, mode nuit/sépia, reprise de lecture |
-| `/blog` | Articles gérés depuis l'administration |
+| `/galerie` | Photos de la vie de l'église, visionneuse plein écran utilisable au clavier |
+| `/blog` | Nouvelles et articles gérés depuis l'administration |
 | `/nous-trouver` | Carte interactive, distance depuis votre position, itinéraire Google Maps / Waze / Plans, formulaire de contact et de prière |
-| `/admin` | Espace équipe : articles, réglages du site, messages reçus |
+| `/admin` | Espace équipe : articles, galerie photo, réglages du site, messages reçus |
 
 **Shalom**, la colombe du logo, guide les visiteurs de page en page (on peut la laisser se reposer).
 Les cultes s'ajoutent à l'agenda du téléphone via `/api/agenda` (fichier .ics).
@@ -37,6 +39,32 @@ Sans base Redis, les articles, réglages et messages sont enregistrés dans `.da
 3. Ajoutez `ADMIN_PASSWORD` et `NEXT_PUBLIC_SITE_URL`.
 4. Facultatif : `YOUTUBE_API_KEY` (YouTube Data API v3, gratuite) pour plus de vidéos et une détection
    plus fine des directs. Sans clé, le site lit le flux public de la chaîne (15 dernières vidéos).
+
+## Ajouter les photos de la galerie
+
+Deux façons, au choix :
+
+1. **Depuis l'administration** (`/admin/galerie`) : choisissez plusieurs photos d'un coup (celles de la page
+   Facebook, par exemple), décrivez-les en quelques mots, réordonnez-les, enregistrez. Elles sont allégées
+   automatiquement. La première photo s'affiche aussi en grand sur l'accueil.
+2. **Dans le dépôt** : déposez des fichiers `.jpg` / `.webp` dans `public/images/galerie/`. Ils sont utilisés
+   tant qu'aucune photo n'a été ajoutée depuis l'administration.
+
+Tant que la galerie est vide, le site affiche des images des derniers cultes filmés et un lien vers Facebook.
+
+## Design, animations et accessibilité
+
+- **Charte** : `app/globals.css`. Les couleurs sont des variables (`--paper`, `--ink`, `--accent`…) définies
+  pour le thème clair, le thème sombre (`[data-theme="dark"]`) et les sections sombres (`.on-dark`).
+  La bande tissée (`components/ui/Weave.tsx`) est le fil conducteur visuel.
+- **Thème** : bouton soleil/lune (`components/ui/ThemeToggle.tsx`). Par défaut le site suit le réglage du
+  téléphone ; le choix est mémorisé.
+- **Animations** : `components/motion/SmoothScroll.tsx` (Lenis) et `components/motion/ScrollFx.tsx` (GSAP
+  ScrollTrigger + SplitText), pilotées par des attributs `data-reveal`, `data-split`, `data-parallax`,
+  `data-words`, `data-clip`, `data-hscroll`… documentés en tête de `ScrollFx.tsx`.
+- **Accessibilité** : si le système demande de réduire les animations, ni Lenis ni GSAP ne démarrent et tout le
+  contenu est visible d'emblée. Contrastes vérifiés dans les deux thèmes, navigation complète au clavier,
+  lien d'évitement, focus visible, cibles tactiles de 44 px, textes alternatifs sur les photos.
 
 ## À compléter depuis `/admin/reglages`
 

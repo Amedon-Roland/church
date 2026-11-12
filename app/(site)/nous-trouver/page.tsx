@@ -8,8 +8,8 @@ import { Mail, Phone } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Nous trouver",
-  description: "Plan interactif, itinéraire, horaires des cultes et formulaire de contact de l'église Terre de Victoire à Lomé.",
+  title: "Venir nous voir",
+  description: "Le plan pour venir à Terre de Victoire à Lomé, l'itinéraire depuis chez vous, les horaires des cultes et un formulaire pour nous écrire ou confier une prière.",
 };
 
 export default async function FindUsPage() {
@@ -18,62 +18,80 @@ export default async function FindUsPage() {
   return (
     <>
       <PageIntro
-        kicker="Nous trouver"
+        kicker="Venir nous voir"
         title={
           <>
-            Venez comme vous <em className="text-royal">êtes</em>.
+            La porte est <em>ouverte.</em>
           </>
         }
-        lead="Que ce soit pour un culte, une question ou simplement parler à quelqu'un : la porte est ouverte."
+        lead="Pour un culte, pour une question, ou juste pour parler à quelqu'un : passez nous voir. On vous indique le chemin."
       />
 
-      <section className="py-14 lg:py-20" data-guide="Touchez « Où suis-je ? » pour voir la distance jusqu'à l'église.">
-        <div className="container-x reveal">
+      <section className="section !pb-0" data-guide="Touchez le bouton sur la carte pour voir à quelle distance vous êtes de l'église.">
+        <div className="container-x" data-reveal>
           <ChurchMap lat={settings.lat} lng={settings.lng} address={settings.address} hint={settings.addressHint} />
         </div>
       </section>
 
-      <section className="pb-20 lg:pb-28">
-        <div className="container-x">
-          <div className="reveal mb-8">
-            <p className="kicker">Quand venir</p>
-            <h2 className="mt-4 text-4xl text-ink sm:text-5xl">Nos rendez-vous</h2>
+      <section className="section">
+        <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.7fr] lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <p className="kicker" data-reveal>
+              Quand venir
+            </p>
+            <h2 data-split className="t-2 mt-6 text-ink">
+              Choisissez <em>votre</em> jour.
+            </h2>
+            <p data-reveal className="mt-6 max-w-sm text-ink-soft">
+              Pas besoin de prévenir ni de s&apos;inscrire. Si c&apos;est votre première fois, dites-le à l&apos;accueil : on prendra soin de vous.
+            </p>
           </div>
           <ServicesProgram services={settings.services} />
         </div>
       </section>
 
-      <section id="ecrire" className="scroll-mt-24 bg-linen/70 py-20 lg:py-28" data-guide="Une question, un sujet de prière ? Écrivez-nous, on lit tout.">
-        <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-          <div className="reveal">
-            <p className="kicker">Nous écrire</p>
-            <h2 className="mt-4 text-4xl text-ink sm:text-5xl">
-              Une question ? Un fardeau ? <em className="text-royal">Écrivez-nous.</em>
+      <section id="ecrire" className="section scroll-mt-20 bg-linen" data-guide="Une question, un sujet de prière ? Écrivez-nous, on lit tout.">
+        <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+          <div>
+            <p className="kicker" data-reveal>
+              Nous écrire
+            </p>
+            <h2 data-split className="t-2 mt-6 text-ink">
+              Une question ? Un poids sur le cœur ? <em>On vous lit.</em>
             </h2>
-            <p className="mt-5 text-ink-soft">Vos messages arrivent directement à l&apos;équipe. Les sujets de prière restent confidentiels.</p>
-            <ul className="mt-8 space-y-3">
+            <p data-reveal className="mt-6 max-w-md text-ink-soft">
+              Votre message arrive directement à l&apos;équipe de l&apos;église, pas à une machine. Les sujets de prière restent confidentiels : ils ne
+              sont partagés qu&apos;avec ceux qui prient.
+            </p>
+            <ul className="mt-8 space-y-1" data-reveal>
               {settings.phone && (
                 <li>
-                  <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 text-ink hover:text-royal">
-                    <Phone className="h-4 w-4 text-gold-ink" /> {settings.phone}
+                  <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="flex min-h-11 items-center gap-3 font-semibold text-ink hover:text-accent">
+                    <Phone aria-hidden className="h-4 w-4 text-gold-ink" /> {settings.phone}
                   </a>
                 </li>
               )}
               {settings.email && (
                 <li>
-                  <a href={`mailto:${settings.email}`} className="flex items-center gap-3 break-all text-ink hover:text-royal">
-                    <Mail className="h-4 w-4 text-gold-ink" /> {settings.email}
+                  <a href={`mailto:${settings.email}`} className="flex min-h-11 items-center gap-3 break-all font-semibold text-ink hover:text-accent">
+                    <Mail aria-hidden className="h-4 w-4 text-gold-ink" /> {settings.email}
                   </a>
                 </li>
               )}
             </ul>
             {socials.length > 0 && (
-              <div className="mt-8">
-                <p className="mb-3 text-sm font-medium text-ink-mute">Ou retrouvez-nous sur</p>
+              <div className="mt-8" data-reveal>
+                <p className="mb-3 text-sm font-semibold text-ink-mute">Vous préférez les réseaux ?</p>
                 <ul className="flex flex-wrap gap-2">
                   {socials.map(({ key, label, href, Icon }) => (
                     <li key={key}>
-                      <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-sm font-medium text-ink hover:border-royal hover:text-royal">
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${label} (s'ouvre dans un nouvel onglet)`}
+                        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-card px-4 text-sm font-semibold text-ink transition-colors hover:border-ink"
+                      >
                         <Icon className="h-4 w-4" /> {label}
                       </a>
                     </li>
@@ -82,7 +100,7 @@ export default async function FindUsPage() {
               </div>
             )}
           </div>
-          <div className="reveal relative" style={{ "--delay": "120ms" } as React.CSSProperties}>
+          <div className="relative" data-reveal>
             <ContactForm />
           </div>
         </div>
