@@ -6,8 +6,8 @@ import type { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Direct & rediffusions",
-  description: "Suivez les cultes de Terre de Victoire en direct depuis Lomé, ou revoyez les prédications en rediffusion.",
+  title: "Cultes en direct et à revoir",
+  description: "Suivez les cultes de Terre de Victoire en direct depuis Lomé, ou revoyez les prédications quand vous voulez.",
 };
 
 export default async function LivePage() {
@@ -17,20 +17,26 @@ export default async function LivePage() {
 
   return (
     <>
-      <div className="on-dark bg-night text-paper">
-        <div className="container-x pt-10 sm:pt-14">
-          <p className="kicker">Direct & rediffusions</p>
-          <h1 className="mt-4 text-[2.6rem] leading-[1.04] sm:text-6xl">
+      <div className="on-dark bg-night">
+        <div className="container-x pt-12 sm:pt-16 lg:pt-20">
+          <p className="kicker" data-reveal>
+            En direct et à revoir
+          </p>
+          <h1 data-split="now" className="t-1 mt-6 max-w-4xl text-ink">
             {feed.live ? (
               <>
-                Nous sommes <em className="text-gold">en direct</em>.
+                Le culte a commencé. <em>Entrez.</em>
               </>
             ) : (
               <>
-                L&apos;église, même <em className="text-gold">à distance</em>.
+                Loin des yeux, pas <em>loin du cœur.</em>
               </>
             )}
           </h1>
+          <p data-reveal className="lead mt-6 max-w-2xl">
+            Malade, en voyage, ou à l&apos;autre bout du monde ? Suivez le culte d&apos;où vous êtes. Et revenez sur une prédication autant de fois
+            qu&apos;il le faut.
+          </p>
         </div>
       </div>
       <ReplayBrowser

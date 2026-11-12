@@ -11,9 +11,9 @@ import { BookPicker } from "./BookPicker";
 type Nav = { href: string; label: string } | null;
 
 const THEMES: Record<ReaderPrefs["theme"], { page: string; bar: string; label: string; dot: string }> = {
-  clair: { page: "bg-paper text-ink", bar: "border-line bg-paper/90", label: "Clair", dot: "bg-paper" },
-  sepia: { page: "bg-[#f3e7cf] text-[#3b2a1a]", bar: "border-[#e2d2b2] bg-[#f3e7cf]/90", label: "Sépia", dot: "bg-[#f3e7cf]" },
-  nuit: { page: "bg-night text-paper/90", bar: "border-paper/10 bg-night/90", label: "Nuit", dot: "bg-night" },
+  clair: { page: "bg-paper text-ink", bar: "border-line bg-paper/90", label: "du site", dot: "bg-paper" },
+  sepia: { page: "theme-light bg-[#f3e7cf] !text-[#3b2a1a]", bar: "border-[#e2d2b2] bg-[#f3e7cf]/90", label: "Sépia", dot: "bg-[#f3e7cf]" },
+  nuit: { page: "on-dark bg-night !text-snow/90", bar: "border-snow/10 bg-night/90", label: "Nuit", dot: "bg-night" },
 };
 
 export function Reader({ book, chapter, verses, prev, next }: { book: Book; chapter: number; verses: string[]; prev: Nav; next: Nav }) {
@@ -152,11 +152,11 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
                 aria-pressed={isSel}
                 onClick={() => toggle(v)}
                 onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), toggle(v))}
-                className={`scroll-mt-40 rounded-[0.2em] px-0.5 transition-colors [box-decoration-break:clone] [-webkit-box-decoration-break:clone] ${hl ? `${HL_CLASSES[hl.c]} ${dark ? "text-night" : ""}` : ""} ${
+                className={`scroll-mt-40 rounded-[0.2em] px-0.5 transition-colors [box-decoration-break:clone] [-webkit-box-decoration-break:clone] ${hl ? `${HL_CLASSES[hl.c]} text-night` : ""} ${
                   isSel ? "underline decoration-gold decoration-2 underline-offset-[6px]" : ""
                 } verse cursor-pointer`}
               >
-                <sup className={`mr-1 select-none font-sans text-[0.6em] font-semibold ${dark && !hl ? "text-gold" : "text-gold-ink"}`}>{v}</sup>
+                <sup className={`mr-1 select-none font-sans text-[0.6em] font-semibold ${hl ? "text-[#7d5208]" : "text-gold-ink"}`}>{v}</sup>
                 {text}{" "}
               </span>
             );
@@ -165,7 +165,7 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
 
         <nav className="mt-16 grid grid-cols-2 gap-3" aria-label="Chapitres">
           {prev ? (
-            <Link href={prev.href} className={`group flex items-center gap-2 rounded-2xl border p-4 ${dark ? "border-paper/15 hover:border-gold" : "border-line hover:border-royal"}`}>
+            <Link href={prev.href} className={`group flex items-center gap-2 rounded-2xl border p-4 ${dark ? "border-snow/15 hover:border-gold" : "border-line hover:border-royal"}`}>
               <ChevronLeft className="h-5 w-5 shrink-0 transition-transform group-hover:-translate-x-1" />
               <span className="min-w-0">
                 <span className="block text-xs opacity-60">Précédent</span>
@@ -176,7 +176,7 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
             <span />
           )}
           {next && (
-            <Link href={next.href} className={`group flex items-center justify-end gap-2 rounded-2xl border p-4 text-right ${dark ? "border-paper/15 hover:border-gold" : "border-line hover:border-royal"}`}>
+            <Link href={next.href} className={`group flex items-center justify-end gap-2 rounded-2xl border p-4 text-right ${dark ? "border-snow/15 hover:border-gold" : "border-line hover:border-royal"}`}>
               <span className="min-w-0">
                 <span className="block text-xs opacity-60">Suivant</span>
                 <span className="block truncate font-serif text-lg">{next.label}</span>

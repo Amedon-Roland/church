@@ -131,7 +131,7 @@ export function SettingsForm({ initial }: { initial: Settings }) {
               <input value={sv.note ?? ""} onChange={(e) => setService(i, { note: e.target.value })} placeholder="Petite description (facultatif)" className={`${field} sm:col-span-4`} aria-label="Description" />
             </div>
           ))}
-          <button type="button" onClick={() => set("services", [...s.services, { day: "Dimanche", weekday: 0, time: "10:00", title: "", note: "" }])} className="inline-flex items-center gap-2 text-sm font-semibold text-royal">
+          <button type="button" onClick={() => set("services", [...s.services, { day: "Dimanche", weekday: 0, time: "10:00", title: "", note: "" }])} className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
             <Plus className="h-4 w-4" /> Ajouter un rendez-vous
           </button>
         </Section>
@@ -150,7 +150,7 @@ export function SettingsForm({ initial }: { initial: Settings }) {
               </div>
             ))}
           </div>
-          <button type="button" onClick={() => set("leaders", [...s.leaders, { name: "", role: "", photo: "", bio: "" }])} className="inline-flex items-center gap-2 text-sm font-semibold text-royal">
+          <button type="button" onClick={() => set("leaders", [...s.leaders, { name: "", role: "", photo: "", bio: "" }])} className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
             <Plus className="h-4 w-4" /> Ajouter une personne
           </button>
         </Section>
@@ -158,7 +158,7 @@ export function SettingsForm({ initial }: { initial: Settings }) {
 
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-card/95 backdrop-blur lg:left-64">
         <div className="mx-auto flex max-w-5xl items-center justify-end gap-4 px-4 py-3 lg:px-8">
-          {msg && <p className={`text-sm font-medium ${msg.ok ? "text-royal" : "text-live"}`}>{msg.text}</p>}
+          {msg && <p className={`text-sm font-medium ${msg.ok ? "text-accent" : "text-live"}`}>{msg.text}</p>}
           <button type="button" onClick={save} disabled={pending} className="btn btn-primary">
             {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />} Enregistrer
           </button>

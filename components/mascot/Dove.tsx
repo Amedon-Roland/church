@@ -39,7 +39,7 @@ export function Dove({ className = "", mood = "idle" }: { className?: string; mo
           <path d="M60 46c5-11 12-20 22-27M64 48c4-8 9-14 15-19M58 42c3-9 8-17 15-23" stroke="#c9922d" strokeWidth="1" fill="none" strokeLinecap="round" opacity=".55" />
         </g>
       </g>
-      <g className="dove-zzz" fill="#8a5f12" fontFamily="var(--font-hand)" fontSize="13">
+      <g className="dove-zzz" fill="#8a5f12" fontFamily="var(--font-display)" fontWeight="700" fontSize="13">
         <text x="48" y="22">z</text>
         <text x="56" y="14" fontSize="10">z</text>
       </g>

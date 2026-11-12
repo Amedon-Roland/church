@@ -14,8 +14,8 @@ export function LiveBanner() {
   return (
     <Link href="/direct" className="group mb-8 flex w-fit max-w-full animate-rise items-center gap-3 rounded-full bg-live py-2 pl-3 pr-5 text-sm font-semibold text-white shadow-lg">
       <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-white animate-live" />
-      <span className="truncate">En direct maintenant{status.title ? ` : ${status.title}` : ""}</span>
-      <span className="transition-transform group-hover:translate-x-1">→</span>
+      <span className="truncate">Le culte est en direct{status.title ? ` : ${status.title}` : ""}</span>
+      <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
     </Link>
   );
 }

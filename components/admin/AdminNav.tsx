@@ -1,12 +1,13 @@
 "use client";
 
-import { Inbox, LayoutDashboard, Newspaper, Settings } from "lucide-react";
+import { Images, Inbox, LayoutDashboard, Newspaper, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ITEMS = [
   { href: "/admin", label: "Tableau de bord", Icon: LayoutDashboard },
   { href: "/admin/articles", label: "Articles", Icon: Newspaper },
+  { href: "/admin/galerie", label: "Galerie", Icon: Images },
   { href: "/admin/messages", label: "Messages", Icon: Inbox },
   { href: "/admin/reglages", label: "Réglages du site", Icon: Settings },
 ];
@@ -26,7 +27,7 @@ export function AdminNav({ unread }: { unread: number }) {
             <Icon className="h-4 w-4" />
             {label}
             {href === "/admin/messages" && unread > 0 && (
-              <span className={`ml-auto rounded-full px-2 py-0.5 text-xs font-bold ${active ? "bg-white text-royal" : "bg-live text-white"}`}>{unread}</span>
+              <span className={`ml-auto rounded-full px-2 py-0.5 text-xs font-bold ${active ? "bg-white text-accent" : "bg-live text-white"}`}>{unread}</span>
             )}
           </Link>
         );

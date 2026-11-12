@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function AdminRoot({ children }: { children: React.ReactNode }) {
-  return <div className="min-h-dvh bg-linen/60">{children}</div>;
+  return <div className="theme-light min-h-dvh bg-linen">{children}</div>;
 }

@@ -2,6 +2,7 @@
 
 import { requireAdmin } from "@/lib/admin";
 import { SESSION_COOKIE, SESSION_DAYS, adminConfigured, checkPassword, createSessionToken } from "@/lib/auth";
+import { saveGallery, type Photo } from "@/lib/gallery";
 import { saveMedia } from "@/lib/media";
 import { updateMessages } from "@/lib/messages";
 import { deletePost, getPostById, readingMinutes, savePost, slugify, type Post } from "@/lib/posts";
@@ -115,6 +116,34 @@ export async function saveSettingsAction(input: Settings): Promise<{ ok: boolean
   };
   try {
     await saveSettings(clean);
+    revalidatePath("/", "layout");
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: (e as Error).message };
+  }
+}
+
+/* ---------------- Galerie ---------------- */
+
+export async function saveGalleryAction(input: Photo[]): Promise<{ ok: boolean; error?: string }> {
+  await requireAdmin();
+  if (!Array.isArray(input) || input.length > 200) return { ok: false, error: "Trop de photos (200 au maximum)." };
+  const clean: Photo[] = [];
+  for (const p of input) {
+    // Seules les images envoyées ici (ou rangées dans /images) sont acceptées.
+    if (typeof p?.src !== "string" || !/^\/(media\/[a-f0-9]{16}|images\/[\w./-]+)$/.test(p.src) || p.src.includes("..")) continue;
+    const w = Number(p.w);
+    const h = Number(p.h);
+    clean.push({
+      id: String(p.id || p.src).slice(0, 80),
+      src: p.src,
+      alt: String(p.alt ?? "").trim().slice(0, 200) || "La vie de l'église Terre de Victoire",
+      caption: String(p.caption ?? "").trim().slice(0, 140) || undefined,
+      ...(w > 0 && h > 0 ? { w: Math.round(w), h: Math.round(h) } : {}),
+    });
+  }
+  try {
+    await saveGallery(clean);
     revalidatePath("/", "layout");
     return { ok: true };
   } catch (e) {

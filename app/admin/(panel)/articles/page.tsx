@@ -29,7 +29,7 @@ export default async function PostsAdmin() {
                       {p.category} · {p.author}
                     </span>
                   </span>
-                  <span className={`w-fit shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${p.status === "draft" ? "bg-gold-soft text-gold-ink" : "bg-royal/10 text-royal"}`}>
+                  <span className={`w-fit shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${p.status === "draft" ? "bg-gold-soft text-gold-ink" : "bg-royal/10 text-accent"}`}>
                     {p.status === "draft" ? "Brouillon" : "Publié"}
                   </span>
                   <span className="shrink-0 text-sm text-ink-mute">{formatDate(p.publishedAt)}</span>

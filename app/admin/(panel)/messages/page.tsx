@@ -20,11 +20,11 @@ export default async function MessagesAdmin() {
             return (
               <li key={m.id} className={`card p-5 ${m.read ? "opacity-75" : "border-l-4 border-l-royal"}`}>
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${m.kind === "priere" ? "bg-gold-soft text-gold-ink" : "bg-royal/10 text-royal"}`}>
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${m.kind === "priere" ? "bg-gold-soft text-gold-ink" : "bg-royal/10 text-accent"}`}>
                     {m.kind === "priere" ? "Prière" : "Question"}
                   </span>
                   <span className="font-semibold text-ink">{m.name}</span>
-                  {m.contact && (contact ? <a href={contact} className="text-sm text-royal underline-offset-2 hover:underline">{m.contact}</a> : <span className="text-sm text-ink-mute">{m.contact}</span>)}
+                  {m.contact && (contact ? <a href={contact} className="text-sm text-accent underline-offset-2 hover:underline">{m.contact}</a> : <span className="text-sm text-ink-mute">{m.contact}</span>)}
                   <span className="ml-auto text-xs text-ink-mute">{formatFull(m.createdAt)}</span>
                 </div>
                 <p className="mt-3 whitespace-pre-line text-ink-soft">{m.body}</p>

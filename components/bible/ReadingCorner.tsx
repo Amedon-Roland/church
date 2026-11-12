@@ -15,19 +15,19 @@ export function ReadingCorner() {
   return (
     <section className="mt-12 grid gap-6 lg:grid-cols-[1fr_2fr]">
       {last && (
-        <Link href={`/bible/${last.slug}/${last.chapter}`} className="group flex flex-col justify-between rounded-2xl bg-royal p-6 text-white">
-          <BookmarkCheck className="h-6 w-6 text-gold-soft" />
+        <Link href={`/bible/${last.slug}/${last.chapter}`} className="group flex flex-col justify-between rounded-[1.5rem] bg-indigo p-6 text-white">
+          <BookmarkCheck aria-hidden className="h-6 w-6 text-gold" />
           <span className="mt-8">
             <span className="block text-sm text-white/70">Reprendre ma lecture</span>
-            <span className="font-serif text-3xl">{last.name}</span>
-            <span className="mt-1 block text-sm text-gold-soft transition-transform group-hover:translate-x-1">Continuer →</span>
+            <span className="font-display text-3xl font-semibold tracking-[-0.03em]">{last.name}</span>
+            <span className="mt-1 block text-sm font-semibold text-gold transition-transform group-hover:translate-x-1">Continuer →</span>
           </span>
         </Link>
       )}
       {hl.length > 0 && (
         <div className="card p-5 sm:p-6">
           <p className="kicker mb-4">Mes versets surlignés</p>
-          <ul className="max-h-72 space-y-3 overflow-y-auto pr-1">
+          <ul data-lenis-prevent className="max-h-72 space-y-3 overflow-y-auto pr-1">
             {hl.map(([key, h]) => (
               <li key={key} className="flex items-start gap-3">
                 <span className={`mt-1.5 h-3 w-3 shrink-0 rounded-full ${HL_CLASSES[h.c]}`} />

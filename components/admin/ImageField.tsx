@@ -54,7 +54,7 @@ export function ImageField({ value, onChange, label, aspect = "aspect-[16/9]" }:
         )}
         {busy && (
           <span className="absolute inset-0 grid place-items-center bg-paper/80">
-            <Loader2 className="h-6 w-6 animate-spin text-royal" />
+            <Loader2 className="h-6 w-6 animate-spin text-accent" />
           </span>
         )}
         {value && !busy && (

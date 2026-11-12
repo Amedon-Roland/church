@@ -1,13 +1,24 @@
-/** En-tête des pages intérieures : sur-titre, grand titre, chapeau. */
+import { Weave } from "@/components/ui/Weave";
+
+/** En-tête des pages intérieures : sur-titre, grand titre, chapeau, puis la bande tissée. */
 export function PageIntro({ kicker, title, lead, children }: { kicker: string; title: React.ReactNode; lead?: React.ReactNode; children?: React.ReactNode }) {
   return (
-    <section className="paper-grain border-b border-line">
-      <div className="container-x pb-12 pt-10 sm:pb-16 sm:pt-14 lg:pt-20">
-        <p className="kicker animate-rise">{kicker}</p>
-        <h1 className="mt-5 max-w-4xl animate-rise text-[2.6rem] leading-[1.04] text-ink [animation-delay:80ms] sm:text-6xl lg:text-7xl">{title}</h1>
-        {lead && <p className="mt-6 max-w-2xl animate-rise text-lg text-ink-soft [animation-delay:160ms] sm:text-xl">{lead}</p>}
+    <section className="relative">
+      <div className="container-x pb-14 pt-12 sm:pb-20 sm:pt-16 lg:pt-24">
+        <p className="kicker" data-reveal>
+          {kicker}
+        </p>
+        <h1 data-split="now" className="t-1 mt-6 max-w-5xl text-ink">
+          {title}
+        </h1>
+        {lead && (
+          <p data-reveal className="lead mt-7 max-w-2xl">
+            {lead}
+          </p>
+        )}
         {children}
       </div>
+      <Weave height={10} />
     </section>
   );
 }

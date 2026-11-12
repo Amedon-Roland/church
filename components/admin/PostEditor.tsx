@@ -142,7 +142,7 @@ export function PostEditor({ post, categories }: { post?: Post; categories: stri
           </button>
         </div>
       </div>
-      {message && <p className={`mt-4 rounded-xl px-4 py-2.5 text-sm font-medium ${message.ok ? "bg-royal/10 text-royal" : "bg-live/10 text-live"}`}>{message.text}</p>}
+      {message && <p className={`mt-4 rounded-xl px-4 py-2.5 text-sm font-medium ${message.ok ? "bg-royal/10 text-accent" : "bg-live/10 text-live"}`}>{message.text}</p>}
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_18rem]">
         <div className="space-y-5">
@@ -199,7 +199,7 @@ export function PostEditor({ post, categories }: { post?: Post; categories: stri
         <aside className="space-y-5">
           <div className="card space-y-4 p-5">
             <p className="text-sm font-semibold text-ink">
-              Statut : <span className={data.status === "published" ? "text-royal" : "text-gold-ink"}>{data.status === "published" ? "publié" : "brouillon"}</span>
+              Statut : <span className={data.status === "published" ? "text-accent" : "text-gold-ink"}>{data.status === "published" ? "publié" : "brouillon"}</span>
             </p>
             <label className="block">
               <span className="mb-1.5 block text-sm font-medium text-ink-soft">Date de publication</span>

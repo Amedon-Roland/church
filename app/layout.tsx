@@ -3,6 +3,15 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
+// Titres : Bricolage Grotesque — une grotesque chaleureuse, un peu artisanale.
+const bricolage = localFont({
+  variable: "--font-bricolage",
+  display: "swap",
+  src: [{ path: "./fonts/bricolage-grotesque-latin-wght-normal.woff2", weight: "200 800", style: "normal" }],
+  fallback: ["Avenir Next", "system-ui", "sans-serif"],
+});
+
+// Écriture et mots mis en valeur : Newsreader, la serif du texte biblique.
 const newsreader = localFont({
   variable: "--font-newsreader",
   display: "swap",
@@ -11,7 +20,6 @@ const newsreader = localFont({
     { path: "./fonts/newsreader-latin-wght-italic.woff2", weight: "200 800", style: "italic" },
   ],
   fallback: ["Times New Roman", "serif"],
-  // Police de secours recalibrée sur une serif : pas de saut de texte au chargement.
   adjustFontFallback: "Times New Roman",
 });
 
@@ -22,22 +30,14 @@ const figtree = localFont({
   fallback: ["system-ui", "sans-serif"],
 });
 
-const caveat = localFont({
-  variable: "--font-caveat",
-  display: "swap",
-  preload: false,
-  src: [{ path: "./fonts/caveat-latin-600-normal.woff2", weight: "600", style: "normal" }],
-  fallback: ["cursive"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Terre de Victoire — Victory Outreach Ministry International, Lomé",
+    default: "Terre de Victoire — une église, une famille à Lomé",
     template: "%s · Terre de Victoire",
   },
   description:
-    "Église Terre de Victoire à Lomé (Togo) : cultes en direct et rediffusions, Bible Louis Segond en ligne, blog et plan d'accès. Venez comme vous êtes.",
+    "Terre de Victoire, c'est une église et une famille à Lomé (Togo). Cultes en direct et à revoir, Bible en ligne, photos de la vie de l'église et plan pour venir nous voir. Venez comme vous êtes.",
   openGraph: {
     type: "website",
     locale: "fr_FR",
@@ -46,17 +46,26 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#17193a",
+  themeColor: "#f5f2eb",
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
 };
 
+// Exécuté avant le premier affichage : applique le thème choisi (ou celui du
+// téléphone) sans éclair blanc, et n'active les animations que si la personne
+// ne les a pas réduites dans ses réglages d'accessibilité.
+const BOOT = `(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem("tdv:theme")}catch(e){}
+if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+d.dataset.theme=t;d.classList.add("js");
+var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#0e1030":"#f5f2eb");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");setTimeout(function(){if(!d.classList.contains("motion-ready"))d.classList.add("motion-failed")},4000)}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" suppressHydrationWarning className={`${newsreader.variable} ${figtree.variable} ${caveat.variable}`}>
+    <html lang="fr" suppressHydrationWarning className={`${bricolage.variable} ${newsreader.variable} ${figtree.variable}`}>
       <body>
-        {/* Active les animations d'apparition seulement si le JS tourne. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: BOOT }} />
         {children}
       </body>
     </html>

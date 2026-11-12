@@ -37,14 +37,17 @@ const SEED: Post[] = [
     readingMinutes: 2,
     content: `Shalom à vous !
 
-Ce site a été repensé pour une raison simple : que vous puissiez rester connectés à la famille, même quand vous ne pouvez pas être dans la salle le dimanche.
+On a refait ce site pour une raison toute simple : que vous restiez proches de la famille, même les dimanches où vous ne pouvez pas être dans la salle.
 
 ## Ce que vous y trouverez
 
-- **Le direct** : quand un culte est diffusé sur notre chaîne YouTube, il apparaît automatiquement sur la page *Direct & replays*. Les cultes passés restent disponibles en rediffusion.
+- **Le direct** : quand un culte est diffusé sur notre chaîne YouTube, il apparaît tout seul sur la page *Cultes en vidéo*. Les cultes passés restent là, à revoir quand vous voulez.
 - **La Bible** : la version Louis Segond 1910, complète. Vous pouvez surligner un verset, le copier ou l'envoyer à quelqu'un qui en a besoin.
-- **Le blog** : des nouvelles de l'église, des méditations et des témoignages.
-- **Nous trouver** : une carte et un itinéraire depuis l'endroit où vous êtes.
+- **La galerie** : la vie de l'église en photos. Vous vous y reconnaîtrez peut-être.
+- **Les nouvelles** : ce qui se passe chez nous, des méditations et des témoignages.
+- **Venir nous voir** : une carte et un itinéraire depuis l'endroit où vous êtes.
+
+Le soir, le site peut passer en thème sombre (le petit bouton soleil/lune en haut) : c'est plus doux pour les yeux.
 
 Et puis il y a Shalom, notre petite colombe. Elle vous accompagne de page en page. Si elle vous dérange, dites-lui d'aller se reposer — elle ne le prendra pas mal.
 
@@ -68,7 +71,7 @@ Et puis il y a Shalom, notre petite colombe. Elle vous accompagne de page en pag
 
 ## 1. Sur ce site
 
-Ouvrez la page **Direct & replays**. Quand nous sommes en direct, le lecteur se lance en haut de la page. Sinon, vous verrez un compte à rebours jusqu'au prochain culte.
+Ouvrez la page **Cultes en vidéo**. Quand nous sommes en direct, le lecteur se lance en haut de la page. Sinon, vous verrez un compte à rebours jusqu'au prochain culte.
 
 ## 2. Sur YouTube
 
