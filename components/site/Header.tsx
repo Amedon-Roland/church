@@ -66,18 +66,19 @@ export function Header({ services }: { services: { day: string; time: string; ti
         }`}
       >
         <div className="container-x flex h-[4.25rem] items-center justify-between gap-4 lg:h-20">
-          <Link href="/" onClick={() => setOpen(false)} className="group flex items-center gap-3" aria-label="Terre de Victoire — retour à l'accueil">
+          <Link href="/" onClick={() => setOpen(false)} className="group flex min-w-0 items-center gap-2.5 sm:gap-3">
             <Image
               src="/images/logo.webp"
               alt=""
               width={44}
               height={44}
               priority
-              className="h-10 w-10 rounded-full ring-2 ring-gold/50 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:rotate-[-10deg] lg:h-11 lg:w-11"
+              className="h-10 w-10 shrink-0 rounded-full ring-2 ring-gold/50 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:rotate-[-10deg] lg:h-11 lg:w-11"
             />
-            <span className="leading-none">
-              <span className="block font-display text-[1.2rem] font-bold tracking-[-0.03em] text-ink">Terre de Victoire</span>
-              <span className="mt-1 block text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-ink-mute">Église · Lomé</span>
+            <span className="min-w-0 leading-none">
+              <span className="block whitespace-nowrap font-display text-[0.95rem] font-bold tracking-[-0.03em] text-ink min-[360px]:text-[1.2rem]">Terre de Victoire</span>
+              <span className="mt-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-mute">Église · Lomé</span>
+              <span className="sr-only"> — retour à l&apos;accueil</span>
             </span>
           </Link>
 
@@ -105,7 +106,7 @@ export function Header({ services }: { services: { day: string; time: string; ti
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
             <Link href="/direct" onClick={() => setOpen(false)} className={`btn hidden !min-h-11 !px-5 text-sm sm:inline-flex ${live ? "bg-live text-white" : "btn-primary"}`}>
               {live && <span className="h-2 w-2 rounded-full bg-white animate-live" />}

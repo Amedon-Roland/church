@@ -65,7 +65,7 @@ export function ContactForm() {
         </div>
       </fieldset>
       <input type="hidden" name="t" value={startedAt} />
-      <div aria-hidden className="absolute -left-[9999px]">
+      <div aria-hidden className="sr-only">
         <label>
           Ne pas remplir <input name="site" tabIndex={-1} autoComplete="off" />
         </label>

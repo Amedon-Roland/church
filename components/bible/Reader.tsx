@@ -103,14 +103,16 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
     <div className={`min-h-[80vh] transition-colors duration-300 ${theme.page}`}>
       {/* Barre d'outils */}
       <div className={`sticky top-[4.25rem] z-30 border-b backdrop-blur-md lg:top-20 ${theme.bar}`}>
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-2 px-4 py-2.5 sm:px-6">
+        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-2 gap-y-1 px-3 py-2 sm:px-6 sm:py-2.5">
           <BookPicker current={book} chapter={chapter} />
-          <div className="flex items-center gap-1">
-            <button type="button" onClick={() => updatePrefs({ size: Math.max(0.95, +(prefs.size - 0.1).toFixed(2)) })} className="grid h-10 w-10 place-items-center rounded-full font-serif text-sm hover:bg-current/10" aria-label="Réduire le texte">
-              A-
+          <div className="ml-auto flex items-center gap-0.5 sm:gap-1" role="group" aria-label="Réglages de lecture">
+            <button type="button" onClick={() => updatePrefs({ size: Math.max(0.95, +(prefs.size - 0.1).toFixed(2)) })} className="grid h-11 w-10 place-items-center rounded-full font-serif text-sm hover:bg-current/10">
+              <span aria-hidden>A-</span>
+              <span className="sr-only">Réduire la taille du texte</span>
             </button>
-            <button type="button" onClick={() => updatePrefs({ size: Math.min(1.8, +(prefs.size + 0.1).toFixed(2)) })} className="grid h-10 w-10 place-items-center rounded-full font-serif text-lg hover:bg-current/10" aria-label="Agrandir le texte">
-              A+
+            <button type="button" onClick={() => updatePrefs({ size: Math.min(1.8, +(prefs.size + 0.1).toFixed(2)) })} className="grid h-11 w-10 place-items-center rounded-full font-serif text-lg hover:bg-current/10">
+              <span aria-hidden>A+</span>
+              <span className="sr-only">Agrandir la taille du texte</span>
             </button>
             <span className="mx-1 h-6 w-px bg-current/15" />
             {(Object.keys(THEMES) as ReaderPrefs["theme"][]).map((t) => (
@@ -118,7 +120,7 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
                 key={t}
                 type="button"
                 onClick={() => updatePrefs({ theme: t })}
-                className={`grid h-10 w-9 place-items-center rounded-full`}
+                className="grid h-11 w-9 place-items-center rounded-full"
                 aria-label={`Thème ${THEMES[t].label}`}
                 aria-pressed={prefs.theme === t}
               >
@@ -156,7 +158,7 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
                   isSel ? "underline decoration-gold decoration-2 underline-offset-[6px]" : ""
                 } verse cursor-pointer`}
               >
-                <sup className={`mr-1 select-none font-sans text-[0.6em] font-semibold ${hl ? "text-[#7d5208]" : "text-gold-ink"}`}>{v}</sup>
+                <sup className={`mr-1 select-none font-sans text-[0.68em] font-semibold ${hl ? "text-[#7d5208]" : "text-gold-ink"}`}>{v}</sup>
                 {text}{" "}
               </span>
             );
@@ -168,7 +170,7 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
             <Link href={prev.href} className={`group flex items-center gap-2 rounded-2xl border p-4 ${dark ? "border-snow/15 hover:border-gold" : "border-line hover:border-royal"}`}>
               <ChevronLeft className="h-5 w-5 shrink-0 transition-transform group-hover:-translate-x-1" />
               <span className="min-w-0">
-                <span className="block text-xs opacity-60">Précédent</span>
+                <span className="block text-xs opacity-80">Précédent</span>
                 <span className="block truncate font-serif text-lg">{prev.label}</span>
               </span>
             </Link>
@@ -178,14 +180,14 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
           {next && (
             <Link href={next.href} className={`group flex items-center justify-end gap-2 rounded-2xl border p-4 text-right ${dark ? "border-snow/15 hover:border-gold" : "border-line hover:border-royal"}`}>
               <span className="min-w-0">
-                <span className="block text-xs opacity-60">Suivant</span>
+                <span className="block text-xs opacity-80">Suivant</span>
                 <span className="block truncate font-serif text-lg">{next.label}</span>
               </span>
               <ChevronRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" />
             </Link>
           )}
         </nav>
-        <p className="mt-10 text-center text-xs opacity-50">Louis Segond 1910 · domaine public</p>
+        <p className="mt-10 text-center text-xs opacity-80">Louis Segond 1910 · domaine public</p>
       </article>
 
       {/* Actions sur la sélection */}
@@ -201,7 +203,7 @@ export function Reader({ book, chapter, verses, prev, next }: { book: Book; chap
                 <Eraser className="h-4 w-4" />
               </button>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="ml-auto flex items-center gap-0.5 sm:gap-1" role="group" aria-label="Réglages de lecture">
               <button type="button" onClick={copy} className="inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold hover:bg-linen">
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />} {copied ? "Copié" : "Copier"}
               </button>

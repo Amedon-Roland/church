@@ -56,8 +56,8 @@ export default async function HomePage() {
     <>
       {/* ---------- Ouverture ---------- */}
       <section className="relative overflow-hidden">
-        <div className="container-x grid items-center gap-x-10 gap-y-14 pb-16 pt-10 sm:pt-14 lg:grid-cols-[1.35fr_1fr] lg:pb-24 lg:pt-16">
-          <div>
+        <div className="container-x grid items-center gap-x-10 gap-y-14 pb-16 pt-10 sm:pt-14 md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.35fr_1fr] lg:pb-24 lg:pt-16">
+          <div className="min-w-0">
             <LiveBanner />
             <p className="kicker" data-reveal>
               Une église, une famille · Lomé, Togo
@@ -65,7 +65,7 @@ export default async function HomePage() {
             <h1 data-split="now" className="t-hero mt-6 text-ink">
               Ici, on se <em>relève.</em> Ensemble.
             </h1>
-            <p data-reveal className="lead mt-8 max-w-xl">
+            <p data-reveal className="lead mt-8 max-w-md xl:max-w-xl">
               Vous n&apos;avez pas besoin d&apos;avoir tout compris, ni tout réglé dans votre vie. Venez comme vous êtes : on vous garde une place, et
               on avance ensemble.
             </p>
@@ -79,10 +79,10 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[24rem] lg:max-w-none" data-reveal="scale">
+          <div className="relative mx-auto w-full max-w-[24rem] md:max-w-none" data-reveal="scale">
             <HeroArch photo={photos[0]} />
             {next && (
-              <div className="card relative z-10 mx-auto -mt-20 w-[92%] overflow-hidden lg:absolute lg:-bottom-10 lg:-left-16 lg:mt-0 lg:w-[22rem]">
+              <div className="card relative z-10 mx-auto -mt-20 w-[92%] overflow-hidden lg:absolute lg:-bottom-10 lg:-left-2 lg:mt-0 lg:w-[20rem] xl:-left-16 xl:w-[22rem]">
                 <Weave height={8} />
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-ink">On se retrouve bientôt</p>
@@ -127,9 +127,7 @@ export default async function HomePage() {
       {/* ---------- Ce qui nous tient ensemble ---------- */}
       <section className="section overflow-hidden" data-guide="Voilà ce qui nous tient à cœur. Si ça vous parle, vous êtes déjà un peu des nôtres.">
         <div aria-hidden className="mb-14 select-none whitespace-nowrap font-display text-[18vw] font-bold leading-none tracking-[-0.06em] text-ink/[0.06] lg:mb-20 lg:text-[11vw]">
-          <div data-drift="-22" className="w-max">
-            Paix · Joie · Victoire · Paix · Joie · Victoire · Paix · Joie · Victoire
-          </div>
+          <div data-drift="-22" data-text="Paix · Joie · Victoire · Paix · Joie · Victoire · Paix · Joie · Victoire" className="w-max before:content-[attr(data-text)]" />
         </div>
         <div className="container-x">
           <p className="kicker" data-reveal>

@@ -66,7 +66,7 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
       <section className="on-dark bg-night pb-16 pt-10 sm:pt-12 lg:pb-20">
         <div ref={player} className="container-x scroll-mt-24">
           <div className="grid gap-8 lg:grid-cols-[1.8fr_1fr] lg:gap-10">
-            <div>
+            <div className="min-w-0">
               {selected ? (
                 <LiteYouTube key={selected.id} id={selected.id} title={selected.title} thumbnail={selected.thumbnail} live={selected.kind === "live"} priority />
               ) : (
@@ -91,7 +91,7 @@ export function ReplayBrowser({ live, upcoming, videos, channelUrl, next }: Prop
               )}
             </div>
 
-            <aside className="space-y-4">
+            <aside className="min-w-0 space-y-4">
               {live ? (
                 <div className="rounded-2xl bg-live p-6 text-white">
                   <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
