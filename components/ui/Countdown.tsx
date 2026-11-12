@@ -45,15 +45,15 @@ export function Countdown({ target, tone = "light" }: { target: string; tone?: "
     ["sec", p?.s],
   ];
   return (
-    <div className="flex gap-2 sm:gap-2.5" role="timer" aria-live="off" aria-label={p ? `Dans ${p.j} jours, ${p.h} heures et ${p.min} minutes` : "Compte à rebours"}>
+    <div className="grid max-w-[18rem] grid-cols-4 gap-1.5 sm:gap-2.5" role="timer" aria-live="off" aria-label={p ? `Dans ${p.j} jours, ${p.h} heures et ${p.min} minutes` : "Compte à rebours"}>
       {cells.map(([label, value]) => (
         <div
           key={label}
           aria-hidden
-          className={`min-w-[3.5rem] rounded-xl px-2 py-2.5 text-center sm:min-w-[4rem] ${tone === "dark" ? "bg-snow/8 text-snow ring-1 ring-snow/10" : "bg-linen text-ink"}`}
+          className={`rounded-xl px-1 py-2.5 text-center ${tone === "dark" ? "bg-snow/8 text-snow ring-1 ring-snow/10" : "bg-linen text-ink"}`}
         >
           <span className="block font-display text-2xl font-semibold tabular-nums leading-none tracking-[-0.03em] sm:text-3xl">{value === undefined ? "–" : String(value).padStart(2, "0")}</span>
-          <span className={`mt-1 block text-[0.65rem] font-semibold uppercase tracking-wider ${tone === "dark" ? "text-snow/60" : "text-ink-mute"}`}>{label}</span>
+          <span className={`mt-1 block text-xs font-semibold ${tone === "dark" ? "text-snow/60" : "text-ink-mute"}`}>{label}</span>
         </div>
       ))}
     </div>

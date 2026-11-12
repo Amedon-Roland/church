@@ -65,6 +65,9 @@ Tant que la galerie est vide, le site affiche des images des derniers cultes fil
 - **Accessibilité** : si le système demande de réduire les animations, ni Lenis ni GSAP ne démarrent et tout le
   contenu est visible d'emblée. Contrastes vérifiés dans les deux thèmes, navigation complète au clavier,
   lien d'évitement, focus visible, cibles tactiles de 44 px, textes alternatifs sur les photos.
+  Le réglage « augmenter le contraste » de l'appareil renforce textes et filets.
+- **Formats** : mise en page contrôlée de 320 px (petit téléphone) à 2560 px (grand écran, où tout grandit
+  proportionnellement), téléphone à l'horizontale compris, plus une feuille de style d'impression.
 
 ## À compléter depuis `/admin/reglages`
 

@@ -58,10 +58,10 @@ export function Footer({ settings }: { settings: Settings }) {
 
           <nav aria-label="Pied de page">
             <p className="kicker mb-5">Le site</p>
-            <ul className="space-y-2.5">
+            <ul className="-my-2">
               {NAV.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-ink-soft hover:text-ink">
+                  <Link href={item.href} className="flex min-h-11 items-center text-ink-soft hover:text-ink">
                     <span className="link-draw">{item.label}</span>
                   </Link>
                 </li>
@@ -85,44 +85,44 @@ export function Footer({ settings }: { settings: Settings }) {
 
           <div>
             <p className="kicker mb-5">Nous joindre</p>
-            <ul className="space-y-3.5 text-ink-soft">
-              <li className="flex gap-3">
-                <MapPin aria-hidden className="mt-1 h-4 w-4 shrink-0 text-gold" />
-                <Link href="/nous-trouver" className="hover:text-ink">
+            <ul className="-my-1 text-ink-soft">
+              <li className="flex min-h-11 items-center gap-3">
+                <MapPin aria-hidden className="h-4 w-4 shrink-0 text-gold" />
+                <Link href="/nous-trouver" className="flex min-h-11 items-center hover:text-ink">
                   <span className="link-draw">{settings.address}</span>
                 </Link>
               </li>
               {settings.phone && (
-                <li className="flex gap-3">
-                  <Phone aria-hidden className="mt-1 h-4 w-4 shrink-0 text-gold" />
-                  <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="hover:text-ink">
+                <li className="flex min-h-11 items-center gap-3">
+                  <Phone aria-hidden className="h-4 w-4 shrink-0 text-gold" />
+                  <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="flex min-h-11 items-center hover:text-ink">
                     <span className="link-draw">{settings.phone}</span>
                   </a>
                 </li>
               )}
               {settings.email && (
-                <li className="flex gap-3">
-                  <Mail aria-hidden className="mt-1 h-4 w-4 shrink-0 text-gold" />
-                  <a href={`mailto:${settings.email}`} className="break-all hover:text-ink">
+                <li className="flex min-h-11 items-center gap-3">
+                  <Mail aria-hidden className="h-4 w-4 shrink-0 text-gold" />
+                  <a href={`mailto:${settings.email}`} className="flex min-h-11 items-center break-all hover:text-ink">
                     <span className="link-draw">{settings.email}</span>
                   </a>
                 </li>
               )}
             </ul>
             <p className="mt-6 text-sm text-ink-mute">Un sujet de prière ? Il reste entre nous et Dieu.</p>
-            <Link href="/nous-trouver?sujet=priere#ecrire" className="mt-2 inline-block font-semibold text-gold">
+            <Link href="/nous-trouver?sujet=priere#ecrire" className="inline-flex min-h-11 items-center font-semibold text-gold">
               <span className="link-draw">Confier une prière</span>
             </Link>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-6 text-sm text-ink-mute sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-1 border-t border-line pt-4 text-sm text-ink-mute sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {settings.churchName} — Lomé, Togo.
           </p>
           <p>
             Textes bibliques : Louis Segond 1910. ·{" "}
-            <Link href="/admin" className="hover:text-ink">
+            <Link href="/admin" className="inline-flex min-h-11 items-center hover:text-ink">
               <span className="link-draw">Espace équipe</span>
             </Link>
           </p>
